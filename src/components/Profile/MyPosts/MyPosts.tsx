@@ -7,8 +7,8 @@ export function MyPosts() {
             <div>
                 My posts
             </div>
-            <Post message='Hi, how are your?'/>
-            <Post message="I'am ok"/>
+            <Post message={'Hi, how are your?'} />
+            <Post message={"I'am ok"} />
 
         </div>
     )
