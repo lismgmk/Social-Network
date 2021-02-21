@@ -6,13 +6,14 @@ export function Nav() {
         <div className={s.nav}>
             <nav>
                 <ul>
-                    <li><a>Profile</a></li>
-                    <li><a>Message</a></li>
-                    <li><a>News</a></li>
-                    <li><a>Music</a></li>
-                    <li><a>Setting</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href='/message'>Message</a></li>
+                    <li><a href='/news'>News</a></li>
+                    <li><a href='/music'>Music</a></li>
+                    <li><a href='/setting'>Setting</a></li>
                 </ul>
             </nav>
         </div>
     )
 }
+

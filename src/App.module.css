@@ -13,7 +13,14 @@
   /*grid-template-columns: auto;*/
 }
 
-
+.main {
+  grid-area: main;
+  background-color: chartreuse;
+}
+.main img{
+  width: 200px;
+  height: 100px;
+}
 
 
 
