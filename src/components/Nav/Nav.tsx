@@ -8,20 +8,20 @@ export function Nav() {
         <nav className={s.nav}>
 
 
+                    <div className={s.item} >
+                        <NavLink to="/profile" activeClassName={s.activeLink} >Profile</NavLink>
+                    </div>
                     <div className={`${s.item} ${s.active}`}>
-                        <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
+                        <NavLink to='/message' activeClassName={s.activeLink}>Message</NavLink>
                     </div>
                     <div className={s.item}>
-                        <NavLink to='/message'>Message</NavLink>
+                        <NavLink to='/news' activeClassName={s.activeLink}>News</NavLink>
                     </div>
                     <div className={s.item}>
-                        <NavLink to='/news'>News</NavLink>
+                        <NavLink to='/music' activeClassName={s.activeLink}>Music</NavLink>
                     </div>
                     <div className={s.item}>
-                        <NavLink to='/music'>Music</NavLink>
-                    </div>
-                    <div className={s.item}>
-                        <NavLink to='/setting'>Setting</NavLink>
+                        <NavLink to='/setting' activeClassName={s.activeLink}>Setting</NavLink>
                     </div>
 
 
