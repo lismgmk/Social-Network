@@ -7,7 +7,7 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Setting} from './components/Setting/Setting';
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 
 
@@ -20,7 +20,7 @@ function App() {
               <Nav/>
               <div className={s.main}>
 
-                  <Route title={'profile'}  path='/profile' component={Profile} />
+                  <Route title={'profile'} path='/profile' component={Profile} />
                   <Route title={'message'}  path='/message' component={Dialogs} />
                   <Route title={'news'} path='/news' component={News} />
                   <Route title={'music'} path='/music' component={Music} />
