@@ -1,23 +1,15 @@
 import React from "react";
-import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import s from "./Profile.module.css";
 
-type ProfileProps = {
-    title: string
-}
-
-export function Profile(props: ProfileProps) {
+export function Profile(props) {
+    debugger
     return (
-        <div >
-            <div>{props.title}</div>
-            <div>
-                <img src='https://wallpaperset.com/w/full/9/c/9/327497.jpg'/>
-            </div>
-            <div>
-                ava + description
-            </div>
-            <MyPosts/>
-
+        <div className={s.profile}>
+            'll;'
+            <ProfileInfo />
+            <MyPosts datr={props.data}/>
         </div>
     )
 }

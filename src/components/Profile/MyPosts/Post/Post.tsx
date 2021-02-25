@@ -1,14 +1,13 @@
 import React from "react";
 import s from './Post.module.css';
 
-type PostProp = {
-    message: string
-}
 
-export function Post(props: PostProp) {
+
+export function Post(props) {
+
     return (
         <div className={s.item}>
-            {props.message}
+            {props.message[0].message}
         </div>
     )
 }

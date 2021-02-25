@@ -7,24 +7,32 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Setting} from './components/Setting/Setting';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route  } from "react-router-dom";
 
 
-
-
-function App() {
+function App(props) {
+debugger
   return (
       <BrowserRouter>
           <div className={s.appWrapper}>
               <Header/>
+
               <Nav/>
               <div className={s.main}>
 
-                  <Route title={'profile'} path='/profile' component={Profile} />
-                  <Route title={'message'}  path='/message' component={Dialogs} />
-                  <Route title={'news'} path='/news' component={News} />
-                  <Route title={'music'} path='/music' component={Music} />
-                  <Route title={'setting'} path='/setting' component={Setting} />
+                  <Route  path='/profile' render = {
+                      () =>  <Profile data = {props.state.dataPosts}/>
+                  }/>
+                  <Route   path='/message'  render = {
+                      () => <Dialogs
+                          dialogData={props.state.dialogData}
+                          messageData={props.state.messageData}
+                      />
+                  } />
+                  <Route path='/news' component={News} />
+                  <Route  path='/music' component={Music} />
+                  <Route  path='/setting' component={Setting} />
+
               </div>
           </div>
       </BrowserRouter>
