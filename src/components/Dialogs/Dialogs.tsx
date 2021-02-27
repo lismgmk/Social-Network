@@ -15,7 +15,7 @@ export function Dialogs(props) {
         return  <Message message={item.message} />
     });
 
-    debugger
+
     return (
 
             <div className={s.dialogs}>

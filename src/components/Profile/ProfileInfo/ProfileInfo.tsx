@@ -2,7 +2,7 @@ import s from "./ProfileInfo.module.css";
 import React from "react";
 
 export function ProfileInfo() {
-    debugger
+
     return (
         <div className={s.profileInfo}>
             <div>

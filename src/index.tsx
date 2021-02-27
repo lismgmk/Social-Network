@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
+import App from './App';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import rerenderEntireTree from './render';
 import state from './DataStates/State';
 
+
+rerenderEntireTree(state);
 
 ReactDOM.render(
   <React.StrictMode>

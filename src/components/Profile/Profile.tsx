@@ -7,7 +7,7 @@ export function Profile(props) {
     debugger
     return (
         <div className={s.profile}>
-            'll;'
+
             <ProfileInfo />
             <MyPosts datr={props.data}/>
         </div>

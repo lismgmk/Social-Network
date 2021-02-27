@@ -11,7 +11,7 @@ import { BrowserRouter, Route  } from "react-router-dom";
 
 
 function App(props) {
-debugger
+
   return (
       <BrowserRouter>
           <div className={s.appWrapper}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import rerenderEntireTree from "../render";
 
 let state = {
     dataPosts: [
@@ -14,5 +15,11 @@ let state = {
     messageData: [{message: 'Hi hello', r: 1},
         {message: 'Good morning', r: 2}]
 };
+
+export let addPost = (text) => {
+    let newPosts = {message: text, id: 3};
+    state.dataPosts.push(newPosts);
+    rerenderEntireTree(state);
+}
 
 export default state;

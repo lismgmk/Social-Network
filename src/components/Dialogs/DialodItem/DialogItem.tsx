@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 export const Dialog = function (props) {
     let path = `/message/${props.id}`;
 
-    debugger
+
 
     return (
         <div className={s.dialogsItem}>
