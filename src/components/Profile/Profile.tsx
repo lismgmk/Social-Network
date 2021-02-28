@@ -9,7 +9,7 @@ export function Profile(props) {
         <div className={s.profile}>
 
             <ProfileInfo />
-            <MyPosts datr={props.data}/>
+            <MyPosts datr={props.data} addPost= {props.addPost}/>
         </div>
     )
 }

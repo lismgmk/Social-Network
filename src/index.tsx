@@ -4,22 +4,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import rerenderEntireTree from './render';
 import state from './DataStates/State';
+import {addPost} from "./DataStates/State";
 
 
-rerenderEntireTree(state);
 
-ReactDOM.render(
-  <React.StrictMode>
-
-
-          <App state={state}/>
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+rerenderEntireTree(state)
 
 
-  </React.StrictMode>,
-
-
-  document.getElementById('root')
-);
 
 
 

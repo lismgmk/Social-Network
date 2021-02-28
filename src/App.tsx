@@ -10,8 +10,9 @@ import {Setting} from './components/Setting/Setting';
 import { BrowserRouter, Route  } from "react-router-dom";
 
 
-function App(props) {
 
+function App(props) {
+debugger
   return (
       <BrowserRouter>
           <div className={s.appWrapper}>
@@ -21,7 +22,8 @@ function App(props) {
               <div className={s.main}>
 
                   <Route  path='/profile' render = {
-                      () =>  <Profile data = {props.state.dataPosts}/>
+                      () =>  <Profile data = {props.state.dataPosts}
+                      addPost= {props.addPost}/>
                   }/>
                   <Route   path='/message'  render = {
                       () => <Dialogs
