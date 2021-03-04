@@ -9,7 +9,10 @@ export function Profile(props) {
         <div className={s.profile}>
 
             <ProfileInfo />
-            <MyPosts datr={props.data} addPost= {props.addPost}/>
+            <MyPosts
+                profilePage = {props.profilePage}
+                addPost = {props.addPost}
+                updateNewPostText = {props.updateNewPostText}/>
         </div>
     )
 }

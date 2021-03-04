@@ -8,33 +8,37 @@ export function MyPosts(props) {
 
 
     let postsElements =
-        props.datr.map( p => <Post message={p.message} />);
+        state.profilePage.posts.map( p => <Post
+            message = {p.message}
+            likeCount = {p.likeCount}
+        />);
+
+
 
     let newPostElement : any = React.createRef();
 
+    let addPost = () => {
+        props.addPost();
+    };
+
+    let onPostChange = () => {
+        let text = newPostElement.current.value;
+        props.updateNewPostText(text);
+    }
 
 
-    let getValue = (text)=>{
-
-        text = newPostElement.current.value;
-        props.addPost(text);
-        newPostElement.current.value = '';
-        console.log(state.dataPosts);
-
-        };
-
-    debugger
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea   ref={newPostElement}/>
+                    <textarea onChange={ onPostChange }
+                        ref = {newPostElement}
+                        value = {state.profilePage.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={getValue}>Add post</button>
-
+                    <button onClick = { addPost }>Add post</button>
 
                 </div>
             </div>
@@ -43,40 +47,5 @@ export function MyPosts(props) {
             </div>
         </div>
     )
-
-    // let textArrVal=React.createRef();
-    //
-    // let getValue = (text)=>{
-    //
-    //     let texts = textArrVal.current.value;
-    // };
-    //
-    //
-    //
-    // let getData =  props.datr.map((i)=>{
-    //    return <Post message = {i.message} />
-    // })
-    // debugger
-    // return (
-    //
-    //     <div>
-    //
-    //         <div>
-    //             My posts
-    //         </div>
-    //
-    //         <textarea  ref={ textArrVal }></textarea>
-    //         <button onClick={getValue}>Click</button>
-    //
-    //
-    //
-    //
-    //         {getData}
-    //
-    //
-    //
-    //
-    //     </div>
-    // )
 }
 

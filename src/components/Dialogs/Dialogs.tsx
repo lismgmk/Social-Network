@@ -7,49 +7,50 @@ import state from "../../DataStates/State";
 
 export function Dialogs(props) {
 
-debugger
-    let getDataDialog = props.dialogData.map((item)=>{
-         return <Dialog name={item.name}  id={item.id}/>
+
+    let getDialog = state.dialogsPage.dialogs.map((item)=>{
+        return <Dialog name={item.name} />
     });
 
-    let getMessageDialog = props.messageData.map((item)=>{
+
+    let getMessage = state.dialogsPage.message.map((item)=>{
         return  <Message message={item.message} />
     });
+
+
 
     let linkTextarea : any = React.createRef();
 
 
 
-    let updateTextarea = () => {
-        let text = linkTextarea.current.value;
-        props.textAreaChange(text);
-        // linkTextarea.current.value = ''
-
+    let addDialog = () => {
+        props.addDialog()
     }
 
-    let ChangeaDialog = () => {
-
-       props.addDialog(linkTextarea.current.value)
+    let onDialogChange = () => {
+        let text = linkTextarea.current.value;
+        props.updateNewDialogText(text);
     }
 
     return (
 
             <div className={s.dialogs}>
 
-
-
                 <div className={s.dialogsItem}>
-                    { getDataDialog }
-
+                    { getDialog }
                 </div>
-
                 <div className={s.messages}>
-                    { getMessageDialog }
-
+                    { getMessage }
                 </div>
+
+
                 <div className={s.dialogsWrapper}>
-                    <textarea  ref={linkTextarea} onChange={updateTextarea}/>
-                    <button onClick={ChangeaDialog}>Add post</button>
+
+                    <textarea  ref={linkTextarea} onChange={ onDialogChange }
+                        value = {state.dialogsPage.newDialogText}
+                    />
+
+                    <button onClick={ addDialog }>Add post</button>
                 </div>
 
             </div>

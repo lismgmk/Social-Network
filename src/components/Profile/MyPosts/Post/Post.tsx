@@ -8,6 +8,7 @@ export function Post(props) {
     return (
         <div className={s.item}>
             {props.message}
+            {props.likeCount}
         </div>
     )
 }

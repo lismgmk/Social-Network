@@ -12,7 +12,7 @@ import state from "./DataStates/State";
 
 
 function App (props) {
-debugger
+
   return (
       <BrowserRouter>
           <div className={s.appWrapper}>
@@ -22,15 +22,17 @@ debugger
               <div className={s.main}>
 
                   <Route  path='/profile' render = {
-                      () =>  <Profile data = {state.dataPosts}
-                      addPost= {props.addPost}/>
+                      () =>  <Profile
+                          profilePage = {state.profilePage}
+                          addPost = {props.addPost}
+                          updateNewPostText = {props.updateNewPostText}
+                      />
                   }/>
                   <Route   path='/message'  render = {
                       () => <Dialogs
-                          dialogData = {state.dialogData}
+                          dialogsPage = {state.dialogsPage}
                           addDialog = {props.addDialog}
-                          messageData = {state.messageData}
-                          textAreaChange = {props.textAreaChange}
+                          updateNewDialogText = {props.updateNewDialogText}
                       />
                   } />
                   <Route path='/news' component={News} />

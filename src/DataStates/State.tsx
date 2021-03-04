@@ -1,62 +1,101 @@
 import React from 'react';
 import rerenderEntireTree from "../render";
 
-type dataPostType =
+type postsType =
     {message: string
-    id: number};
+    id: number
+    likeCount: number};
 
-type dialogDataType = {
+type dialogsType = {
     name: string
     id: number
-    dialog: string
 };
 
-type messageDataType = {
+type messageType = {
     message: string
     id: number
 };
+type profilePageType = {
+    posts: Array<postsType>
+    newPostText: string
+}
+
+type dialogsMessageType = {
+    dialogs: Array<dialogsType>
+    message: Array<messageType>
+    newDialogText: string
+}
 
 type RootStateType = {
-    dataPosts: Array<dataPostType>
-    dialogData: Array<dialogDataType>
-    messageData: Array<messageDataType>
+    profilePage: profilePageType
+    dialogsPage: dialogsMessageType
 }
 
 let state : RootStateType = {
-    dataPosts:  [
-        {message: 'Hello', id: 1},
-        {message: 'Hi', id: 2}
-    ],
-    dialogData: [
-        {name: 'Andrey', id: 1, dialog: 'hi'},
-        {name: 'Vova', id: 2, dialog: ''}
+    profilePage: {
+        posts:  [
+            {message: 'Hello', id: 1, likeCount: 12},
+            {message: 'Hi', id: 2, likeCount: 1},
+            {message: 'Very', id: 3, likeCount: 5},
+            {message: 'Good', id: 4, likeCount: 6},
+            {message: 'Bye', id: 5, likeCount: 10},
+        ],
+        newPostText: 'This is life'
+    },
+
+    dialogsPage: {
+        dialogs: [
+            {name: 'Andrey', id: 1},
+            {name: 'Vova', id: 2},
+            {name: 'Igor', id: 3},
+            {name: 'Sergey', id: 4},
+            {name: 'Vadik', id: 5},
+            {name: 'Lis', id: 6},
         ],
 
-    messageData: [
-        {message: 'Hi hello', id: 1},
-        {message: 'Good morning', id: 2}
-    ]
+        message: [
+            {message: 'Hi hello', id: 1},
+            {message: 'Good morning', id: 2},
+            {message: 'Game Over', id: 3},
+            {message: 'Bla-bla', id: 4},
+            {message: 'vou', id: 5},
+            {message: 'Good', id: 6}
+        ],
+        newDialogText: 'Chick'
+    }
 };
+
+
 
 type addPostType = (text: string) => void
 
- export let addPost : addPostType = (text) => {
-     let newPosts = {message: text, id: 3};
-     state.dataPosts.push(newPosts);
-     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+ export let addPost : addPostType = () => {
+     let newPosts = {message: state.profilePage.newPostText, id: 3, likeCount: 10};
+     state.profilePage.posts.push(newPosts);
+     state.profilePage.newPostText = '';
      rerenderEntireTree(state)
  };
 
 type textAreaChangeType = (text: string) => void
 
- export let textAreaChange : textAreaChangeType= (textarea) => {
-    state.dialogData[0].dialog = textarea;
-    console.log(state.dialogData)
+ export let updateNewPostText : textAreaChangeType= (newText) => {
+    state.profilePage.newPostText = newText;
+     rerenderEntireTree(state)
  };
 
-export let addDialog = (text) => {
-    let newDialog = {message: text, id: 3};
-    state.messageData.push(newDialog);
+export let addDialog = () => {
+    let newDialog = { name: 'Sergey E', id: 7 };
+    let newMessage = {message: state.dialogsPage.newDialogText, id: 7};
+    state.dialogsPage.dialogs.push(newDialog);
+    state.dialogsPage.message.push(newMessage);
+    state.dialogsPage.newDialogText = '';
+    rerenderEntireTree(state)
+}
+
+type updateNewDialogTextType = (text: string) => void
+
+export let updateNewDialogText : updateNewDialogTextType = (newDialogText) => {
+    state.dialogsPage.newDialogText = newDialogText;
     rerenderEntireTree(state)
 }
 

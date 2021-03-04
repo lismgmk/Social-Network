@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {addPost, textAreaChange, addDialog} from './DataStates/State'
+import state, {addDialog, addPost, updateNewDialogText, updateNewPostText} from "./DataStates/State";
 
-let rerenderEntireTree = (state)=>{
+let rerenderEntireTree = (state) => {
     ReactDOM.render(
         <React.StrictMode>
 
             <App
                 state = {state}
                 addPost = {addPost}
-                textAreaChange = {textAreaChange}
+                updateNewPostText = {updateNewPostText}
                 addDialog = {addDialog}
+                updateNewDialogText = {updateNewDialogText}
             />
 
         </React.StrictMode>,
