@@ -7,6 +7,10 @@ export const Message = function (props) {
 
 
     return (
-        <div className={s.message}>{props.message[0]}</div>
+        <div className={s.message}>
+            {props.message}
+
+
+        </div>
     )
 }

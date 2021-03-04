@@ -30,7 +30,7 @@ export function MyPosts(props) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea  ref={newPostElement}/>
+                    <textarea   ref={newPostElement}/>
                 </div>
                 <div>
                     <button onClick={getValue}>Add post</button>

@@ -8,10 +8,10 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Setting} from './components/Setting/Setting';
 import { BrowserRouter, Route  } from "react-router-dom";
+import state from "./DataStates/State";
 
 
-
-function App(props) {
+function App (props) {
 debugger
   return (
       <BrowserRouter>
@@ -22,13 +22,15 @@ debugger
               <div className={s.main}>
 
                   <Route  path='/profile' render = {
-                      () =>  <Profile data = {props.state.dataPosts}
+                      () =>  <Profile data = {state.dataPosts}
                       addPost= {props.addPost}/>
                   }/>
                   <Route   path='/message'  render = {
                       () => <Dialogs
-                          dialogData={props.state.dialogData}
-                          messageData={props.state.messageData}
+                          dialogData = {state.dialogData}
+                          addDialog = {props.addDialog}
+                          messageData = {state.messageData}
+                          textAreaChange = {props.textAreaChange}
                       />
                   } />
                   <Route path='/news' component={News} />
