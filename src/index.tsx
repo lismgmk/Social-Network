@@ -2,6 +2,7 @@ import React from "react";
 import store from './DataStates/State';
 import ReactDOM from "react-dom";
 import App from "./App";
+import {Profile} from "./components/Profile/Profile";
 
 
 let rerenderEntireTree = () => {
@@ -9,11 +10,8 @@ let rerenderEntireTree = () => {
         <React.StrictMode>
 
             <App
-                state = {store.getState()}
-                addPost = {store.addPost.bind(store)}
-                updateNewPostText = {store.updateNewPostText.bind(store)}
-                addDialog = {store.addDialog.bind(store)}
-                updateNewDialogText = {store.updateNewDialogText.bind(store)}
+                state={store.getState()}
+                dispatch={store.dispatch.bind(store)}
             />
 
         </React.StrictMode>,

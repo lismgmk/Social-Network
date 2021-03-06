@@ -34,13 +34,15 @@ type RootStateType = {
 
 type RootStoreType = {
     _state : RootStateType
-    addPost : (any) => void
-    updateNewPostText :(text: string) => void
-    addDialog :(any) => void
-    updateNewDialogText : (text: string) => void
-    subscribe: (any) => void
     _callSubscriber: (any) => void
+    subscribe: (any) => void
     getState: () => void
+    dispatch: (any) => void
+
+    // updateNewPostText :(text: string) => void
+    // addDialog :(any) => void
+    // updateNewDialogText : (text: string) => void
+    // addPost : (any) => void
 }
 
 let store: RootStoreType = {
@@ -79,43 +81,71 @@ let store: RootStoreType = {
         }
     },
 
-    getState () {
-        debugger
-        return this._state
-    },
-
-    addPost() {
-        let newPosts = {message: this._state.profilePage.newPostText, id: 3, likeCount: 10};
-        this._state.profilePage.posts.push(newPosts);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this.getState)
-    },
-
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state)
-    },
-
-    addDialog() {
-        let newDialog = {name: 'Sergey E', id: 7};
-        let newMessage = {message: this._state.dialogsPage.newDialogText, id: 7};
-        this._state.dialogsPage.dialogs.push(newDialog);
-        this._state.dialogsPage.message.push(newMessage);
-        this._state.dialogsPage.newDialogText = '';
-        this._callSubscriber(this._state)
-    },
-
-    updateNewDialogText(newDialogText) {
-        this._state.dialogsPage.newDialogText = newDialogText;
-        this._callSubscriber(this._state)
-    },
-
     _callSubscriber () {
         console.log('State changed')
     },
 
     subscribe(observer) {
         this._callSubscriber = observer
+    },
+
+    getState () {
+        debugger
+        return this._state
+    },
+
+
+
+    // addPost() {
+    //     let newPosts = {message: this._state.profilePage.newPostText, id: 3, likeCount: 10};
+    //     this._state.profilePage.posts.push(newPosts);
+    //     this._state.profilePage.newPostText = '';
+    //     this._callSubscriber(this.getState)
+    // },
+
+    // updateNewPostText(newText) {
+    //     this._state.profilePage.newPostText = newText;
+    //     this._callSubscriber(this._state)
+    // },
+
+    // addDialog() {
+    //     let newDialog = {name: 'Sergey E', id: 7};
+    //     let newMessage = {message: this._state.dialogsPage.newDialogText, id: 7};
+    //     this._state.dialogsPage.dialogs.push(newDialog);
+    //     this._state.dialogsPage.message.push(newMessage);
+    //     this._state.dialogsPage.newDialogText = '';
+    //     this._callSubscriber(this._state)
+    // },
+
+    // updateNewDialogText(newDialogText) {
+    //     this._state.dialogsPage.newDialogText = newDialogText;
+    //     this._callSubscriber(this._state)
+    // },
+
+
+    dispatch (action) {
+        if (action.type === 'ADDPOST') {
+            let newPosts = {message: this._state.profilePage.newPostText, id: 3, likeCount: 10};
+            this._state.profilePage.posts.push(newPosts);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this.getState)
+        }
+        else if (action.type === 'UPDATENEWPOSTTEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state)
+        }
+        else if (action.type === 'ADDDIALOG') {
+            let newDialog = {name: 'Sergey E', id: 7};
+            let newMessage = {message: this._state.dialogsPage.newDialogText, id: 7};
+            this._state.dialogsPage.dialogs.push(newDialog);
+            this._state.dialogsPage.message.push(newMessage);
+            this._state.dialogsPage.newDialogText = '';
+            this._callSubscriber(this._state)
+        }
+        else if (action.type === 'UPDATENEWDIALOGTEXT') {
+            this._state.dialogsPage.newDialogText = action.newDialogText;
+            this._callSubscriber(this._state)
+        }
     }
 
 }

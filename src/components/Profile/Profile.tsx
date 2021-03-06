@@ -8,11 +8,11 @@ export function Profile(props) {
     return (
         <div className={s.profile}>
 
-            <ProfileInfo />
+            <ProfileInfo/>
             <MyPosts
-                profilePage = {props.profilePage}
-                addPost = {props.addPost}
-                updateNewPostText = {props.updateNewPostText}/>
+                profilePage={props.profilePage}
+                dispatch={props.dispatch}
+            />
         </div>
     )
 }

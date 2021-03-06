@@ -24,12 +24,13 @@ export function Dialogs(props) {
 
 
     let addDialog = () => {
-        props.addDialog()
+        // props.addDialog()
+        props.dispatch({ type: 'ADDDIALOG'})
     }
 
     let onDialogChange = () => {
         let text = linkTextarea.current.value;
-        props.updateNewDialogText(text);
+        props.dispatch({ type : 'UPDATENEWDIALOGTEXT', newDialogText : text});
     }
 
     return (
