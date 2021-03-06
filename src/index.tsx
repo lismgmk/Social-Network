@@ -1,14 +1,35 @@
 import React from "react";
-import ReactDOM from 'react-dom';
-import './index.css';
-import rerenderEntireTree from './render';
-import state from './DataStates/State';
-import {addPost} from "./DataStates/State";
+import state, {
+    addDialog,
+    addPost,
+    subscribe,
+    updateNewDialogText,
+    updateNewPostText
+} from './DataStates/State';
+import ReactDOM from "react-dom";
+import App from "./App";
 
 
+let rerenderEntireTree = () => {
+    ReactDOM.render(
+        <React.StrictMode>
 
-// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-rerenderEntireTree(state)
+            <App
+                state = {state}
+                addPost = {addPost}
+                updateNewPostText = {updateNewPostText}
+                addDialog = {addDialog}
+                updateNewDialogText = {updateNewDialogText}
+            />
+
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
+debugger
+rerenderEntireTree();
+
+subscribe(rerenderEntireTree);
 
 
 

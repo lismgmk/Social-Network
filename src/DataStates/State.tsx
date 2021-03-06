@@ -1,5 +1,5 @@
 import React from 'react';
-import rerenderEntireTree from "../render";
+
 
 type postsType =
     {message: string
@@ -96,7 +96,16 @@ type updateNewDialogTextType = (text: string) => void
 
 export let updateNewDialogText : updateNewDialogTextType = (newDialogText) => {
     state.dialogsPage.newDialogText = newDialogText;
+    // rerenderEntireTree(state)
     rerenderEntireTree(state)
+}
+debugger
+let rerenderEntireTree = (i) => {
+    alert('5')
+}
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer
 }
 
 export default state;
