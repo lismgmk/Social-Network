@@ -2,18 +2,18 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
-import state from "../../DataStates/State";
+
 
 
 export function Dialogs(props) {
 
 
-    let getDialog = state.dialogsPage.dialogs.map((item)=>{
+    let getDialog = props.dialogsPage.dialogs.map((item)=>{
         return <Dialog name={item.name} />
     });
 
 
-    let getMessage = state.dialogsPage.message.map((item)=>{
+    let getMessage = props.dialogsPage.message.map((item)=>{
         return  <Message message={item.message} />
     });
 
@@ -47,7 +47,7 @@ export function Dialogs(props) {
                 <div className={s.dialogsWrapper}>
 
                     <textarea  ref={linkTextarea} onChange={ onDialogChange }
-                        value = {state.dialogsPage.newDialogText}
+                        value = {props.dialogsPage.newDialogText}
                     />
 
                     <button onClick={ addDialog }>Add post</button>

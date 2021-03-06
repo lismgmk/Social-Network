@@ -1,14 +1,14 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import s from "./MyPosts.module.css"
-import state from "../../../DataStates/State";
+
 
 export function MyPosts(props) {
 
 
 
     let postsElements =
-        state.profilePage.posts.map( p => <Post
+        props.profilePage.posts.map( p => <Post
             message = {p.message}
             likeCount = {p.likeCount}
         />);
@@ -35,7 +35,7 @@ export function MyPosts(props) {
                 <div>
                     <textarea onChange={ onPostChange }
                         ref = {newPostElement}
-                        value = {state.profilePage.newPostText}/>
+                        value = {props.profilePage.newPostText}/>
                 </div>
                 <div>
                     <button onClick = { addPost }>Add post</button>

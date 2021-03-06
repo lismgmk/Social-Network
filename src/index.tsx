@@ -1,11 +1,5 @@
 import React from "react";
-import state, {
-    addDialog,
-    addPost,
-    subscribe,
-    updateNewDialogText,
-    updateNewPostText
-} from './DataStates/State';
+import store from './DataStates/State';
 import ReactDOM from "react-dom";
 import App from "./App";
 
@@ -15,21 +9,21 @@ let rerenderEntireTree = () => {
         <React.StrictMode>
 
             <App
-                state = {state}
-                addPost = {addPost}
-                updateNewPostText = {updateNewPostText}
-                addDialog = {addDialog}
-                updateNewDialogText = {updateNewDialogText}
+                state = {store.getState()}
+                addPost = {store.addPost.bind(store)}
+                updateNewPostText = {store.updateNewPostText.bind(store)}
+                addDialog = {store.addDialog.bind(store)}
+                updateNewDialogText = {store.updateNewDialogText.bind(store)}
             />
 
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-debugger
+
 rerenderEntireTree();
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);
 
 
 

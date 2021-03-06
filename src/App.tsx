@@ -8,7 +8,7 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Setting} from './components/Setting/Setting';
 import { BrowserRouter, Route  } from "react-router-dom";
-import state from "./DataStates/State";
+import store from "./DataStates/State";
 
 
 function App (props) {
@@ -23,14 +23,14 @@ function App (props) {
 
                   <Route  path='/profile' render = {
                       () =>  <Profile
-                          profilePage = {state.profilePage}
+                          profilePage = {store._state.profilePage}
                           addPost = {props.addPost}
                           updateNewPostText = {props.updateNewPostText}
                       />
                   }/>
                   <Route   path='/message'  render = {
                       () => <Dialogs
-                          dialogsPage = {state.dialogsPage}
+                          dialogsPage = {store._state.dialogsPage}
                           addDialog = {props.addDialog}
                           updateNewDialogText = {props.updateNewDialogText}
                       />
