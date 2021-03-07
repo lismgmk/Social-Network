@@ -2,7 +2,7 @@ import React from "react";
 import store from './DataStates/State';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {Profile} from "./components/Profile/Profile";
+
 
 
 let rerenderEntireTree = () => {

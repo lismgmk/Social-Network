@@ -45,6 +45,17 @@ type RootStoreType = {
     // addPost : (any) => void
 }
 
+const ADDPOST = 'ADDPOST';
+const UPDATENEWPOSTTEXT = 'UPDATENEWPOSTTEXT';
+const ADDDIALOG = 'ADDDIALOG';
+const UPDATENEWDIALOGTEXT = 'UPDATENEWDIALOGTEXT';
+
+export const addPostActionCreater = () => ({type : ADDPOST});
+export const updateNewPostTextActionCreater = (text) => ({type : UPDATENEWPOSTTEXT, newText: text});
+export const addDialogActionCreater = () => ({type : ADDDIALOG});
+export const updateNewDialogTextActionCreater = (text) => ({type : UPDATENEWDIALOGTEXT, newDialogText: text});
+
+
 let store: RootStoreType = {
 
     _state: {
@@ -124,17 +135,17 @@ let store: RootStoreType = {
 
 
     dispatch (action) {
-        if (action.type === 'ADDPOST') {
+        if (action.type === ADDPOST) {
             let newPosts = {message: this._state.profilePage.newPostText, id: 3, likeCount: 10};
             this._state.profilePage.posts.push(newPosts);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this.getState)
         }
-        else if (action.type === 'UPDATENEWPOSTTEXT') {
+        else if (action.type === UPDATENEWPOSTTEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state)
         }
-        else if (action.type === 'ADDDIALOG') {
+        else if (action.type === ADDDIALOG) {
             let newDialog = {name: 'Sergey E', id: 7};
             let newMessage = {message: this._state.dialogsPage.newDialogText, id: 7};
             this._state.dialogsPage.dialogs.push(newDialog);
@@ -142,7 +153,7 @@ let store: RootStoreType = {
             this._state.dialogsPage.newDialogText = '';
             this._callSubscriber(this._state)
         }
-        else if (action.type === 'UPDATENEWDIALOGTEXT') {
+        else if (action.type === UPDATENEWDIALOGTEXT) {
             this._state.dialogsPage.newDialogText = action.newDialogText;
             this._callSubscriber(this._state)
         }

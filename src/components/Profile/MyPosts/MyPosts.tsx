@@ -1,6 +1,8 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import s from "./MyPosts.module.css"
+import {addPostActionCreater, updateNewPostTextActionCreater} from "../../../DataStates/State";
+
 
 
 export function MyPosts(props) {
@@ -16,13 +18,13 @@ export function MyPosts(props) {
 
     let addPost = () => {
         // props.addPost();
-        props.dispatch({type : 'ADDPOST'});
+        props.dispatch(addPostActionCreater());
     };
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
         // props.updateNewPostText(text);
-        props.dispatch({type : 'UPDATENEWPOSTTEXT', newText: text})
+        props.dispatch(updateNewPostTextActionCreater(text))
     }
 
     return (

@@ -2,6 +2,7 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
+import {addDialogActionCreater, updateNewDialogTextActionCreater} from "../../DataStates/State";
 
 
 
@@ -25,12 +26,12 @@ export function Dialogs(props) {
 
     let addDialog = () => {
         // props.addDialog()
-        props.dispatch({ type: 'ADDDIALOG'})
+        props.dispatch( addDialogActionCreater() )
     }
 
     let onDialogChange = () => {
         let text = linkTextarea.current.value;
-        props.dispatch({ type : 'UPDATENEWDIALOGTEXT', newDialogText : text});
+        props.dispatch( updateNewDialogTextActionCreater(text) );
     }
 
     return (
