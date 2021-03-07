@@ -4,17 +4,16 @@ import s from "./MyPosts.module.css"
 import {addPostActionCreater, updateNewPostTextActionCreater} from "../../../DataStates/State";
 
 
-
 export function MyPosts(props) {
 
     let postsElements =
-        props.profilePage.posts.map( p => <Post
-            message = {p.message}
-            likeCount = {p.likeCount}
+        props.profilePage.posts.map(p => <Post
+            message={p.message}
+            likeCount={p.likeCount}
         />);
 
 
-    let newPostElement : any = React.createRef();
+    let newPostElement: any = React.createRef();
 
     let addPost = () => {
         // props.addPost();
@@ -32,17 +31,18 @@ export function MyPosts(props) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea onChange={ onPostChange }
-                        ref = {newPostElement}
-                        value = {props.profilePage.newPostText}/>
+                    <textarea onChange={onPostChange}
+                              ref={newPostElement}
+                              value={props.profilePage.newPostText}
+                              placeholder='Enter your message'/>
                 </div>
                 <div>
-                    <button onClick = { addPost }>Add post</button>
+                    <button onClick={addPost}>Add post</button>
 
                 </div>
             </div>
             <div className={s.posts}>
-                { postsElements }
+                {postsElements}
             </div>
         </div>
     )

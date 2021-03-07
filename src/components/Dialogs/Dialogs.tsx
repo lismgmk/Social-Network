@@ -20,7 +20,7 @@ export function Dialogs(props) {
 
 
 
-    let linkTextarea : any = React.createRef();
+
 
 
 
@@ -29,8 +29,9 @@ export function Dialogs(props) {
         props.dispatch( addDialogActionCreater() )
     }
 
-    let onDialogChange = () => {
-        let text = linkTextarea.current.value;
+    let onDialogChange = (e) => {
+        let text = e.target.value;
+        console.log(e.target)
         props.dispatch( updateNewDialogTextActionCreater(text) );
     }
 
@@ -48,8 +49,9 @@ export function Dialogs(props) {
 
                 <div className={s.dialogsWrapper}>
 
-                    <textarea  ref={linkTextarea} onChange={ onDialogChange }
-                        value = {props.dialogsPage.newDialogText}
+                    <textarea onChange={onDialogChange}
+                              value={props.dialogsPage.newDialogText}
+                              placeholder='Enter your message'
                     />
 
                     <button onClick={ addDialog }>Add post</button>

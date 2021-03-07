@@ -67,7 +67,7 @@ let store: RootStoreType = {
                 {message: 'Good', id: 4, likeCount: 6},
                 {message: 'Bye', id: 5, likeCount: 10},
             ],
-            newPostText: 'This is life'
+            newPostText: ''
         },
 
         dialogsPage: {
@@ -88,7 +88,7 @@ let store: RootStoreType = {
                 {message: 'vou', id: 5},
                 {message: 'Good', id: 6}
             ],
-            newDialogText: 'Chick'
+            newDialogText: ''
         }
     },
 
