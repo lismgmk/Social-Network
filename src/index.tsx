@@ -1,5 +1,5 @@
 import React from "react";
-import store from './DataStates/State';
+import store from './Redux/State';
 import ReactDOM from "react-dom";
 import App from "./App";
 
