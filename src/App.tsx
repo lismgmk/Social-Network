@@ -9,6 +9,7 @@ import {Music} from './components/Music/Music';
 import {Setting} from './components/Setting/Setting';
 import {BrowserRouter, Route} from "react-router-dom";
 import store from "./Redux/State";
+import Photo from "./components/Photo/Photo";
 
 
 function App(props) {
@@ -33,9 +34,13 @@ function App(props) {
                             dispatch={props.dispatch}
                         />
                     }/>
-                    <Route path='/news' component={News}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/setting' component={Setting}/>
+                    <Route path='/news' component = {News}/>
+                    <Route path='/music' component = {Music}/>
+                    <Route path='/setting' component = {Setting}/>
+                    <Route path='/photo' render = {() =>
+                        <Photo photoPage = {store._state.photoPage}/>
+                    }/>
+
 
                 </div>
             </div>
