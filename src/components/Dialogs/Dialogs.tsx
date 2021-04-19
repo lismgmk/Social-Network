@@ -2,30 +2,22 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
-import {addDialogActionCreater, updateNewDialogTextActionCreater} from "../../Redux/dialogsReduser";
-
-
 
 export function Dialogs(props) {
 
-    let state = props.store.getState().dialogsPage
-
-    let getDialog = state.dialogs.map((item)=>{
+    let getDialog = props.dialogs.map((item)=>{
         return <Dialog name={item.name} />
     });
 
-    let getMessage = state.message.map((item)=>{
+    let getMessage = props.message.map((item)=>{
         return  <Message message={item.message} />
     });
 
-    let addDialog = () => {
-        props.store.dispatch( addDialogActionCreater() )
-    }
+
 
     let onDialogChange = (e) => {
         let text = e.target.value;
-        console.log(e.target)
-        props.store.dispatch( updateNewDialogTextActionCreater(text) );
+        props.onChangeValue(text)
     }
 
     return (
@@ -42,11 +34,11 @@ export function Dialogs(props) {
             <div className={s.dialogsWrapper}>
 
                     <textarea onChange={onDialogChange}
-                              value={state.newDialogText}
+                              value={props.newDialogText}
                               placeholder='Enter your message'
                     />
 
-                <button onClick={addDialog}>Add post</button>
+                <button onClick={props.addDialog}>Add post</button>
             </div>
 
         </div>
