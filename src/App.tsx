@@ -8,12 +8,12 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Setting} from './components/Setting/Setting';
 import {BrowserRouter, Route} from "react-router-dom";
-import store from "./Redux/State";
+import store from "./Redux/redux-store";
 import Photo from "./components/Photo/Photo";
 
 
 function App(props) {
-
+debugger
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>
@@ -24,22 +24,22 @@ function App(props) {
 
                     <Route path='/profile' render={
                         () => <Profile
-                            profilePage={store._state.profilePage}
+                            profilePage={props.state.profilePage}
                             dispatch={props.dispatch}
                         />
+
                     }/>
                     <Route path='/message' render={
                         () => <Dialogs
-                            dialogsPage={store._state.dialogsPage}
-                            dispatch={props.dispatch}
+                            store = {props.store}
                         />
                     }/>
                     <Route path='/news' component = {News}/>
                     <Route path='/music' component = {Music}/>
                     <Route path='/setting' component = {Setting}/>
-                    <Route path='/photo' render = {() =>
-                        <Photo photoPage = {store._state.photoPage}/>
-                    }/>
+                    {/*<Route path='/photo' render = {() =>*/}
+                    {/*    // <Photo photoPage = {store._state.photoPage}/>*/}
+                    {/*}/>*/}
 
 
                 </div>

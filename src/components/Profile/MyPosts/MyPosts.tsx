@@ -7,13 +7,13 @@ import {addPostActionCreater, updateNewPostTextActionCreater} from "../../../Red
 export function MyPosts(props) {
 
     let postsElements =
-        props.profilePage.posts.map(p => <Post
+        props.posts.map(p => <Post
             message={p.message}
             likeCount={p.likeCount}
         />);
 
 
-    let newPostElement: any = React.createRef();
+    let newPostElement: React.RefObject<any> = React.createRef();
 
     let addPost = () => {
         // props.addPost();
@@ -21,6 +21,7 @@ export function MyPosts(props) {
     };
 
     let onPostChange = () => {
+
         let text = newPostElement.current.value;
         // props.updateNewPostText(text);
         props.dispatch(updateNewPostTextActionCreater(text))

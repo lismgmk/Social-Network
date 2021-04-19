@@ -3,6 +3,8 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import s from "./Profile.module.css";
 
+
+
 export function Profile(props) {
 
     return (
@@ -10,6 +12,7 @@ export function Profile(props) {
 
             <ProfileInfo/>
             <MyPosts
+                posts={props.profilePage.posts}
                 profilePage={props.profilePage}
                 dispatch={props.dispatch}
             />
