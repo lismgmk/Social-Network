@@ -4,36 +4,35 @@ import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
 import {addDialogActionCreater, updateNewDialogTextActionCreater} from "../../Redux/dialogsReduser";
 import {Dialogs} from "./Dialogs";
+import StoreContext from "../../StateContext";
+
+
+export function DialogsContainer() {
 
 
 
-export function DialogsContainer(props) {
+    return <StoreContext.Consumer>
+        {
+            (store) => {
+             let state = store.getState().dialogsPage
 
-    let state = props.store.getState().dialogsPage
 
+            let addDialog = () => {
+                store.dispatch(addDialogActionCreater())
+            }
 
+            let onChangeValue = (text) => {
+                store.dispatch(updateNewDialogTextActionCreater(text))
+            }
 
-    let addDialog = () => {
-        props.store.dispatch( addDialogActionCreater() )
-    }
-
-    let onChangeValue = (text) => {
-        props.store.dispatch( updateNewDialogTextActionCreater(text) )
-    }
-
-    return (
-
-        <div>
-
-            <Dialogs
-            dialogs = {state.dialogs}
-            message = {state.message}
-            newDialogText = {state.newDialogText}
-            addDialog = {addDialog}
-            onChangeValue = {onChangeValue}
+            return  <Dialogs
+                dialogs={state.dialogs}
+                message={state.message}
+                newDialogText={state.newDialogText}
+                addDialog={addDialog}
+                onChangeValue={onChangeValue}
             />
+        }}
+    </StoreContext.Consumer>
 
-        </div>
-
-    )
 }

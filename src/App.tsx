@@ -25,13 +25,11 @@ debugger
 
                     <Route path='/profile' render={
                         () => <Profile
-                            store = {props.store}
                         />
 
                     }/>
                     <Route path='/message' render={
                         () => <DialogsContainer
-                            store = {props.store}
                         />
                     }/>
                     <Route path='/news' component = {News}/>

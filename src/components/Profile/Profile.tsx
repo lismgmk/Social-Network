@@ -5,15 +5,13 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 
 
-export function Profile(props) {
+export function Profile() {
 
     return (
         <div className={s.profile}>
 
             <ProfileInfo/>
-            <MyPostsContainer
-                store = {props.store}
-            />
+            <MyPostsContainer/>
         </div>
     )
 }
