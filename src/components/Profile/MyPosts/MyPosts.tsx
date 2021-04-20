@@ -4,8 +4,10 @@ import s from "./MyPosts.module.css"
 
 export function MyPosts(props) {
 
+    let state = props.profilePage
+
     let postsElements =
-        props.post.map(p => <Post
+        state.posts.map(p => <Post
             message={p.message}
             likeCount={p.likeCount}
         />);
@@ -13,8 +15,13 @@ export function MyPosts(props) {
     let newPostElement: React.RefObject<any> = React.createRef();
 
     let onPostChange = () => {
+        debugger
         let text = newPostElement.current.value;
-        props.onPostChange(text)
+        props.onPostChangeValue(text)
+    }
+
+    let onClockAddMessage = () => {
+        props.addPost()
     }
 
     return (
@@ -28,7 +35,7 @@ export function MyPosts(props) {
                               placeholder='Enter your message'/>
                 </div>
                 <div>
-                    <button onClick={props.addPost}>Add post</button>
+                    <button onClick={onClockAddMessage}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

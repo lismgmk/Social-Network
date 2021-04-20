@@ -5,19 +5,23 @@ import {Dialog} from "./DialodItem/DialogItem";
 
 export function Dialogs(props) {
 
-    let getDialog = props.dialogs.map((item)=>{
+    let state = props.dialogsPage
+
+    let getDialog = state.dialogs.map((item)=>{
         return <Dialog name={item.name} />
     });
 
-    let getMessage = props.message.map((item)=>{
+    let getMessage = state.message.map((item)=>{
         return  <Message message={item.message} />
     });
-
-
 
     let onDialogChange = (e) => {
         let text = e.target.value;
         props.onChangeValue(text)
+    }
+
+    let onSendMessageClick = () => {
+        props.addDialog()
     }
 
     return (
@@ -34,11 +38,11 @@ export function Dialogs(props) {
             <div className={s.dialogsWrapper}>
 
                     <textarea onChange={onDialogChange}
-                              value={props.newDialogText}
+                              value={state.newDialogText}
                               placeholder='Enter your message'
                     />
 
-                <button onClick={props.addDialog}>Add post</button>
+                <button onClick={onSendMessageClick}>Add post</button>
             </div>
 
         </div>

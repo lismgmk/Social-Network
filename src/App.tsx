@@ -10,7 +10,7 @@ import {Setting} from './components/Setting/Setting';
 import {BrowserRouter, Route} from "react-router-dom";
 import store from "./Redux/redux-store";
 import Photo from "./components/Photo/Photo";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 function App(props) {
