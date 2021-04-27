@@ -1,3 +1,5 @@
+import {initialStateType} from "./dialogsReduser";
+
 const ADDPOST = 'ADDPOST';
 const UPDATENEWPOSTTEXT = 'UPDATENEWPOSTTEXT';
 
@@ -16,7 +18,7 @@ type postsType =
 
 
 type ActionsTypes = addPostType | updateNewPostTextType
-let initialState: InitStateType = {
+let initialState: InitStateProfileType = {
     posts: [
         {message: 'Hello', id: 1, likeCount: 12},
         {message: 'Hi', id: 2, likeCount: 1},
@@ -26,19 +28,17 @@ let initialState: InitStateType = {
     ],
     newPostText: ''
 }
-type InitStateType = {
+export type InitStateProfileType = {
     posts: Array<postsType>
     newPostText: string
 }
 
 
-const profileReduser = (state = initialState, action: ActionsTypes): InitStateType => {
+const profileReduser = (state: InitStateProfileType = initialState, action: ActionsTypes): InitStateProfileType => {
     switch (action.type) {
         case ADDPOST:
             let newPosts = {message: state.newPostText, id: 3, likeCount: 10};
             let newStates : Array<postsType>= [...state.posts, newPosts]
-            // state.newPostText = '';
-            // return state
             return {
                 ...state,
                 posts: newStates,

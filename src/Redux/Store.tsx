@@ -22,8 +22,7 @@ type profilePageType = {
     posts: Array<postsType>
     newPostText: string
 }
-
-export type dialogsMessageType = {
+type dialogsMessageType = {
     dialogs: Array<dialogsType>
     message: Array<messageType>
     newDialogText: string

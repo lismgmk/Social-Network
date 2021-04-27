@@ -1,8 +1,9 @@
 import React from "react";
 import {Post} from "./Post/Post";
 import s from "./MyPosts.module.css"
+import {MapStateDispatchType} from "./MyPostsContainer";
 
-export function MyPosts(props) {
+export function MyPosts(props: MapStateDispatchType) {
 
     let state = props.profilePage
 
@@ -32,7 +33,7 @@ export function MyPosts(props) {
                 <div>
                     <textarea onChange={onPostChange}
                               ref={newPostElement}
-                              value={props.newPostText}
+                              value={props.profilePage.newPostText}
                               placeholder='Enter your message'/>
                 </div>
                 <div>

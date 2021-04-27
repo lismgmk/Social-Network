@@ -2,8 +2,10 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
+import {DialogStateDispatchType} from "./DialogsContainer";
 
-export function Dialogs(props) {
+
+export function Dialogs(props : DialogStateDispatchType) {
 
     let state = props.dialogsPage
 
@@ -17,7 +19,7 @@ export function Dialogs(props) {
 
     let onDialogChange = (e) => {
         let text = e.target.value;
-        props.onChangeValue(text)
+        props.updateNewDialogText(text)
     }
 
     let onSendMessageClick = () => {

@@ -1,11 +1,12 @@
 import React from "react";
 import s from "./Photo.module.css"
 import {NavLink} from "react-router-dom";
+import {DialogsPropsType} from "./PhotoContainer";
 
 
 
 
-function Photo(props) {
+function Photo(props: DialogsPropsType) {
 
     let getGallery = props.photoPage.images.map((i) => {
         return(
@@ -31,8 +32,9 @@ function Photo(props) {
 
             <div className={s.photo}>
                 {getGallery}
-                {getSocialNet}
 
+                <button onClick={()=>props.addPhoto()}>+</button>
+                {getSocialNet}
             </div>
 
     )
