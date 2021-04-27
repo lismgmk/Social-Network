@@ -1,5 +1,5 @@
 import React from 'react';
-import profileReduser, {addPostActionCreater} from "./profileReduser"
+import profileReduser from "./profile-reducer"
 import dialogsReduser from "./dialogsReduser";
 
 type postsType =
@@ -23,7 +23,7 @@ type profilePageType = {
     newPostText: string
 }
 
-type dialogsMessageType = {
+export type dialogsMessageType = {
     dialogs: Array<dialogsType>
     message: Array<messageType>
     newDialogText: string
@@ -46,7 +46,7 @@ type photoPageType = {
     images: Array<imagesType>
 }
 
-type RootStateType = {
+export type RootStateType = {
     profilePage: profilePageType
     dialogsPage: dialogsMessageType
     photoPage: photoPageType

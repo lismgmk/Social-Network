@@ -15,8 +15,9 @@ export function MyPosts(props) {
     let newPostElement: React.RefObject<any> = React.createRef();
 
     let onPostChange = () => {
-        debugger
+
         let text = newPostElement.current.value;
+        console.log(text)
         props.onPostChangeValue(text)
     }
 

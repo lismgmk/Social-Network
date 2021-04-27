@@ -13,8 +13,8 @@ import Photo from "./components/Photo/Photo";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
-function App(props) {
-debugger
+function App() {
+
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>

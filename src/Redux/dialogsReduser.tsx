@@ -1,12 +1,13 @@
 import React from 'react';
+import {dialogsMessageType} from "./Store";
 
 const ADDDIALOG = 'ADDDIALOG';
 const UPDATENEWDIALOGTEXT = 'UPDATENEWDIALOGTEXT';
 
 export const addDialogActionCreater = () => ({type : ADDDIALOG});
-export const updateNewDialogTextActionCreater = (text) => ({type : UPDATENEWDIALOGTEXT, newDialogText: text});
+export const updateNewDialogTextActionCreater = (text) => ({type : UPDATENEWDIALOGTEXT, text});
 
-let initialState = {
+let initialState : dialogsMessageType = {
     dialogs: [
         {name: 'Andrey', id: 1},
         {name: 'Vova', id: 2},
@@ -32,13 +33,13 @@ const dialogsReduser = (state = initialState, action) => {
         case ADDDIALOG:
             let newDialog = {name: 'Sergey E', id: 7};
             let newMessage = {message: state.newDialogText, id: 7};
-            state.dialogs.push(newDialog);
-            state.message.push(newMessage);
-            state.newDialogText = '';
-            return state;
+            // state.dialogs.push(newDialog);
+            // state.message.push(newMessage);
+            // state.newDialogText = '';
+            return {...state, dialogs: [...state.dialogs,  newDialog], message: [...state.message, newMessage], newDialogText: ''};
         case UPDATENEWDIALOGTEXT:
-            state.newDialogText = action.newDialogText
-            return state;
+
+            return {...state, newDialogText: action.text}
         default:
             return state
     }
