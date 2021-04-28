@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-import {initialStateType} from "./dialogsReduser";
-
 const ADDPHOTO = 'ADDPHOTO';
 
 
