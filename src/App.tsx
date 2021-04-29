@@ -11,6 +11,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 
 import PhotoContainer from "./components/Photo/PhotoContainer";
 import DialogsContainer from './components/Dialogs/DialogsContainer'
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 
@@ -39,6 +40,10 @@ function App() {
                     <Route path='/setting' component = {Setting}/>
                     <Route path='/photo' render={
                         ()=> <PhotoContainer
+                        />
+                    }/>
+                    <Route path='/users' render={
+                        ()=> <UsersContainer
                         />
                     }/>
 

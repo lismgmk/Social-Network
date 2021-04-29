@@ -1,46 +1,81 @@
 import React from 'react';
 
-type userDateType = {
-    name: string
-    id: number
+type locationType = {
     country: string
     city: string
+}
+
+export type userDateType = {
+    name: string
+    id: number
+    location: locationType,
     ava: string
     message: string
-    follow: string
+    statusButton: boolean
 };
 
-
 export type initialStateUsersType = {
-    userDate: Array<userDateType>
+    users: Array<userDateType>
 }
 
-export type AddUserType = {
-    type: 'ADDUSER'
+export type FollowType = {
+    type: 'FOLLOW'
+    userId: number
+    statusButton: boolean
+}
+export type UnFollowType = {
+    type: 'UNFOLLOW'
+    userId: number
+    statusButton: boolean
+}
+export type SetUserType = {
+    type: 'SETUSER'
+    users: Array<userDateType>
 }
 
-const ADDUSER = 'ADDUSER';
 
-export const addUserActionCreater = () => ({type: ADDUSER} as const);
+export type ActionUserType = FollowType | UnFollowType | SetUserType
 
-let initialState: initialStateUsersType = {
-    userDate: [
-        {name: 'Vova', id: 1, country: 'belarus', city: 'Minsk', ava: 'https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg', message: 'I am looking for your', follow: 'follow'},
-        {name: 'Igor', id: 2, country: 'belarus', city: 'Minsk', ava: 'https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg' , message: 'I am looking for your', follow: 'unfollow'},
-        {name: 'Sergey', id: 3, country: 'belarus', city: 'Minsk', ava: 'https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg' , message: 'I am looking for your', follow: 'follow'},
-        {name: 'Genya', id: 4, country: 'belarus', city: 'Minsk', ava: 'https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg' , message: 'I am looking for your', follow: 'unfollow'},
-        {name: 'Andrey', id: 5, country: 'belarus', city: 'Minsk', ava: 'https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg' , message: 'I am looking for your', follow: 'follow'}
+const FOLLOW = 'FOLLOW';
+const UNFOLLOW = 'UNFOLLOW';
+const SETUSER = 'SETUSER';
 
-    ]
+export const FollowUserActionCreater = (userId: number) => ({type: FOLLOW, userId});
+export const UnfollowUserActionCreater = (userId: number) => ({type: UNFOLLOW, userId});
+export const SetUserActionCreater = (users: Array<userDateType>) => ({type: SETUSER, users});
+
+let initialState = {
+    users: []
 }
 
-const usersReduser = (state: initialStateUsersType = initialState, action: AddUserType):initialStateUsersType => {
+const usersReduser = (state: initialStateUsersType = initialState, action: ActionUserType): initialStateUsersType => {
     switch (action.type) {
-        case ADDUSER:
-            let newUserDate =  {name: 'Dima', id: 6, country: 'belarus', city: 'Minsk', ava: 'https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg', message: 'I am looking for your', follow: 'follow' };
-            return {...state,
-                userDate: [...state.userDate, newUserDate]
-                // userDate: [...state.userDate, newUserDate]
+        case FOLLOW:
+            return {
+                ...state,
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return {...u, statusButton: true}
+                    }
+                    else{
+                        return u
+                    }
+                })
+            }
+        case UNFOLLOW:
+            return {
+            ...state,
+            users: state.users.map(u => {
+                if (u.id === action.userId) {
+                    return {...u, statusButton: false}
+                } else {
+                    return u
+                }
+            })
+        }
+        case SETUSER:
+            return {
+                ...state, users: [...state.users, ...action.users]
             }
         default:
             return state

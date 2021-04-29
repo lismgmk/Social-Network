@@ -2,32 +2,44 @@ import React from "react";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import Users from "./Users";
-import {addUserActionCreater, initialStateUsersType} from "../../Redux/usersReduser";
+import {
+    FollowUserActionCreater,
+     SetUserActionCreater,
+    UnfollowUserActionCreater, userDateType,
+
+} from "../../Redux/usersReduser";
 import {AppStateType} from "../../Redux/redux-store";
 
 
 type MapStateToPropsType = {
-    users: initialStateUsersType
+    users: Array<userDateType>
 }
 
 type MapDispatchToPropsType = {
-    addUser: () => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    setUser: (userDate: Array<userDateType>) => void
 }
 
 export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
 
 let MapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
-        users: state.users
+        users: state.usersPage.users
     }
 }
 
-let MapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+let MapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        addUser: () => {
-            dispatch(addUserActionCreater())
+        follow: (userId: number) => {
+            dispatch(FollowUserActionCreater(userId))
         },
-
+        unFollow: (userId: number) => {
+            dispatch(UnfollowUserActionCreater(userId))
+        },
+        setUser: (userDate: Array<userDateType>) => {
+            dispatch(SetUserActionCreater(userDate))
+        }
     }
 }
 
