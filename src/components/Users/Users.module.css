@@ -43,3 +43,15 @@
     width: 70px;
     color: green;
 }
+.activePage{
+    font-weight: bold;
+}
+.boxes{
+    display: flex;
+}
+.pageNumberStyle{
+    padding-right: 10px;
+}
+.pageNumberStyle:hover{
+    cursor: pointer;
+}
