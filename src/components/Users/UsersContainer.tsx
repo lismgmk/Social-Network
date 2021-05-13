@@ -45,7 +45,7 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
     };
 
     clickActionPage=(p:number) =>{
-        debugger
+
         this.props.setLoaded(true)
         this.props.setActionPage(p)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`)
@@ -57,7 +57,7 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
     }
 
     render() {
-        debugger
+
         return (
             <>
 
@@ -88,30 +88,6 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isLoaded: state.usersPage.isLoaded
     }
 }
-//
-// let MapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-//
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(FollowUserActionCreater(userId))
-//         },
-//         unFollow: (userId: number) => {
-//             dispatch(UnfollowUserActionCreater(userId))
-//         },
-//         setUser: (userDate: Array<userDateType>) => {
-//             dispatch(SetUserActionCreater(userDate))
-//         },
-//         setActionPage: (page: number) => {
-//             dispatch(SetActionPageActionCreater(page))
-//         },
-//         setTotalCount: (totalCount: number) => {
-//             dispatch(SetTotalCountActionCreater(totalCount))
-//         },
-//         setLoaded: (load: boolean) => {
-//             dispatch(SetLoadedActionCreater(load))
-//         }
-//     }
-// }
 
 
 export default connect(MapStateToProps, {

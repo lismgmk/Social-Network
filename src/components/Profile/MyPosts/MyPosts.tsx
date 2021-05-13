@@ -8,7 +8,7 @@ export function MyPosts(props: MapStateDispatchType) {
     let state = props.profilePage
 
     let postsElements =
-        state.posts.map(p => <Post
+        props.profilePage.posts.map(p => <Post
             message={p.message}
             likeCount={p.likeCount}
         />);
@@ -19,7 +19,7 @@ export function MyPosts(props: MapStateDispatchType) {
 
         let text = newPostElement.current.value;
         console.log(text)
-        props.onPostChangeValue(text)
+        props.updateNewPostText(text)
     }
 
     let onClockAddMessage = () => {

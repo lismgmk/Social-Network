@@ -2,7 +2,7 @@ import React from "react";
 import s from './Users.module.css'
 import user from '../../images/user.png'
 import {userDateType} from "../../Redux/usersReduser";
-import Preloader from "../elseElements/Preloader";
+import {NavLink} from "react-router-dom";
 
 
 type UsersPropstype = {
@@ -44,10 +44,13 @@ const Users = (props: UsersPropstype) => {
 
 
             {props.users.map(i => <div key={i.id} className={s.box}>
-                    <div className={s.ava}>
+                <div className={s.ava}>
+                    <NavLink to={"/profile/" + i.id} activeClassName={s.activeLink}>
                         <img src={i.photos.small === null ? user : i.photos.small}/>
-                        <button
-                            onClick={() => {
+                    </NavLink>
+
+                    <button
+                        onClick={() => {
                                 i.statusButton ?
                                     props.unFollow(i.id) :
                                     props.follow(i.id)

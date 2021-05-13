@@ -12,6 +12,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import PhotoContainer from "./components/Photo/PhotoContainer";
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 
@@ -26,8 +27,8 @@ function App() {
                 <Nav/>
                 <div className={s.main}>
 
-                    <Route path='/profile' render={
-                        () => <Profile
+                    <Route path='/profile/:userId' render={
+                        () => <ProfileContainer
                         />
 
                     }/>
