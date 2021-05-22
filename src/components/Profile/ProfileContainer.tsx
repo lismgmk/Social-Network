@@ -7,18 +7,18 @@ import {addFullNameUser, addLookingForAJobUser, addPhotosUser} from "../../Redux
 import {withRouter} from "react-router";
 import {match} from "assert";
 import {RouteComponentProps} from "react-router/ts4.0";
+import {userApi} from "../../Api/api";
 
 
 type MapStateToPropsType = {
     photosUser: string
     fullNameUser: string
     lookingForAJobUser: boolean
+    log: boolean
 }
 
 type MapDispatchToPropsType = {
     addPhotosUser: (photo: string) => void
-    addFullNameUser: (name: string) => void
-    addLookingForAJobUser: (job: boolean) => void
 }
 
 export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
@@ -26,16 +26,9 @@ export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
 class ProfileContainer extends React.Component <PropsType> {
 
     componentDidMount() {
-
-
         let param = this.props.match.params.userId;
         if(!param) param = '2';
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${param}`)
-            .then(response => {
-                this.props.addPhotosUser(response.data.photos.large)
-                this.props.addFullNameUser(response.data.fullName)
-                this.props.addLookingForAJobUser(response.data.lookingForAJob)
-            })
+        this.props.addPhotosUser(param)
     };
 
 
@@ -57,7 +50,8 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         photosUser: state.profilePage.photosUser,
         fullNameUser: state.profilePage.fullNameUser,
-        lookingForAJobUser: state.profilePage.lookingForAJobUser
+        lookingForAJobUser: state.profilePage.lookingForAJobUser,
+        log: state.author.isLog
     }
 }
 
@@ -74,6 +68,4 @@ let withRouteDataComponent = withRouter(ProfileContainer)
 
 export default connect(MapStateToProps, {
     addPhotosUser,
-    addFullNameUser,
-    addLookingForAJobUser
 })(withRouteDataComponent);

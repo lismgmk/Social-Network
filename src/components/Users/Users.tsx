@@ -3,6 +3,8 @@ import s from './Users.module.css'
 import user from '../../images/user.png'
 import {userDateType} from "../../Redux/usersReduser";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {userApi} from "../../Api/api";
 
 
 type UsersPropstype = {
@@ -13,7 +15,8 @@ type UsersPropstype = {
     unFollow: (p: number) => void
     follow: (p: number) => void
     actionPage: number
-
+    isdisabledButton: (followBoolButton: boolean, id: number) => void
+    followArrButton: Array<number>
 }
 
 const Users = (props: UsersPropstype) => {
@@ -26,6 +29,7 @@ const Users = (props: UsersPropstype) => {
     }
 
     return (
+
         <div className={s.container}>
 
 
@@ -44,18 +48,33 @@ const Users = (props: UsersPropstype) => {
 
 
             {props.users.map(i => <div key={i.id} className={s.box}>
-                <div className={s.ava}>
-                    <NavLink to={"/profile/" + i.id} activeClassName={s.activeLink}>
-                        <img src={i.photos.small === null ? user : i.photos.small}/>
-                    </NavLink>
+                    <div className={s.ava}>
+                        {console.log(i.followed)}
+                        <NavLink to={"/profile/" + i.id} activeClassName={s.activeLink}>
+                            <img src={i.photos.small === null ? user : i.photos.small}/>
+                        </NavLink>
+                        {
+                            i.followed ?
+                                <button
+                                    disabled={props.followArrButton.some((u) => u == i.id)}
+                                    onClick={() => {
+                                        props.unFollow(i.id)
+                                    }}
+                                >
+                                    UNFollow
+                                </button> :
+                                <button
+                                    disabled={props.followArrButton.some((u) => u == i.id)}
+                                    onClick={() => {
+                                        props.follow(i.id)
+                                    }}
+                                >
+                                    follow
+                                </button>
 
-                    <button
-                        onClick={() => {
-                                i.statusButton ?
-                                    props.unFollow(i.id) :
-                                    props.follow(i.id)
-                            }}
-                        >{i.statusButton ? 'Follow' : 'Unfollow'}</button>
+
+                        }
+
                     </div>
                     <div className={s.textArea}>
                         <div className={s.nameMessageArea}>
@@ -68,8 +87,6 @@ const Users = (props: UsersPropstype) => {
             )}
             <button className={s.button}>Show more</button>
         </div>
-
-
     )
 }
 

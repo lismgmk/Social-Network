@@ -1,4 +1,6 @@
 import {initialStateType} from "./dialogsReduser";
+import {headerApi, userApi} from "../Api/api";
+import {getCurentAuthor, setLog} from "./authorReduser";
 
 const ADDPOST = 'ADDPOST';
 const UPDATENEWPOSTTEXT = 'UPDATENEWPOSTTEXT';
@@ -14,8 +16,8 @@ type addPostType = ReturnType<typeof addPost>
 export const updateNewPostText = (text: string) => ({type: UPDATENEWPOSTTEXT, text}as const);
 type updateNewPostTextType = ReturnType<typeof updateNewPostText>
 
-export const addPhotosUser = (photo: string) => ({type: ADD_PHOTOS_USER, photo}as const);
-type addPhotosUserType = ReturnType<typeof addPhotosUser>
+export const addPhotoUser = (photo: string) => ({type: ADD_PHOTOS_USER, photo}as const);
+type addPhotoUserType = ReturnType<typeof addPhotoUser>
 
 export const addFullNameUser = (name: string) => ({type: ADD_FULL_NAME_USER, name}as const);
 type addFullNameUserType = ReturnType<typeof addFullNameUser>
@@ -31,7 +33,7 @@ type postsType =
     }
 
 
-type ActionsTypes = addPostType | updateNewPostTextType | addPhotosUserType | addFullNameUserType | addLookingForAJobUserType
+type ActionsTypes = addPostType | updateNewPostTextType | addPhotoUserType | addFullNameUserType | addLookingForAJobUserType
 let initialState: InitStateProfileType = {
     posts: [
         {message: 'Hello', id: 1, likeCount: 12},
@@ -97,3 +99,14 @@ const profileReduser = (state: InitStateProfileType = initialState, action: Acti
 
 export default profileReduser;
 
+export const addPhotosUser = (param) => {
+    return(
+        (dispatch) => {
+            userApi.getOneUser(param)
+                .then(response => {
+                    dispatch(addPhotoUser(response.photos.large))
+                    dispatch(addFullNameUser(response.fullName))
+                    dispatch(addLookingForAJobUser(response.lookingForAJob))
+                })
+})
+}

@@ -3,14 +3,16 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import Users from "./Users";
 import {
-    followUser, setActionPage, setLoaded, setTotalCount,
-    setUser,
+    followBlock,
+    followUser, getUser, isdisabledButton, setLoaded, setTotalCount,
+    setUser, unFollowBlock,
     unfollowUser, userDateType
 }
-from "../../Redux/usersReduser";
+    from "../../Redux/usersReduser";
 import {AppStateType} from "../../Redux/redux-store";
 import axios from "axios";
 import Preloader from "../elseElements/Preloader";
+import {userApi} from "../../Api/api";
 
 
 type MapStateToPropsType = {
@@ -19,15 +21,19 @@ type MapStateToPropsType = {
     pageSize: number
     actionPage: number
     isLoaded: boolean
+    followArrButton: Array<number>
+    followBoolButton: boolean
 }
 
 type MapDispatchToPropsType = {
-    followUser: (userId: number) => void
-    unfollowUser: (userId: number) => void
-    setUser: (userDate: Array<userDateType>) => void
-    setActionPage: (page: number) => void
-    setTotalCount: (totalCount: number) => void
-    setLoaded: (load: boolean) => void
+    followBlock: (userId: number) => void
+    unFollowBlock: (userId: number) => void
+    // setUser: (userDate: Array<userDateType>) => void
+    // setActionPage: (page: number) => void
+    // setTotalCount: (totalCount: number) => void
+    // setLoaded: (load: boolean) => void
+    isdisabledButton: (followBoolButton: boolean, id: number) => void
+    getUser: (pageSize: number, actionPage: number)=> void
 }
 
 export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
@@ -35,25 +41,11 @@ export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
 class UsersContainer extends React.Component <MapStateDispatchType> {
 
     componentDidMount() {
-        this.props.setLoaded(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.actionPage}`)
-            .then(response => {
-                this.props.setLoaded(false)
-                this.props.setUser(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
-            })
+        this.props.getUser(this.props.pageSize, this.props.actionPage)
     };
 
-    clickActionPage=(p:number) =>{
-
-        this.props.setLoaded(true)
-        this.props.setActionPage(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`)
-            .then(response => {
-                this.props.setUser(response.data.items)
-                this.props.setLoaded(false)
-            })
-
+    clickActionPage = (p: number) => {
+        this.props.getUser(this.props.pageSize, p)
     }
 
     render() {
@@ -67,10 +59,11 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
                     pageSize={this.props.pageSize}
                     clickActionPage={this.clickActionPage}
                     users = {this.props.users}
-                    unFollow = {this.props.unfollowUser}
-                    follow = {this.props.followUser}
+                    unFollow = {this.props.unFollowBlock}
+                    follow = {this.props.followBlock}
                     actionPage = {this.props.actionPage}
-
+                    isdisabledButton = {this.props.isdisabledButton}
+                    followArrButton = {this.props.followArrButton}
                 />
             </>
 
@@ -85,16 +78,16 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         actionPage: state.usersPage.actionPage,
-        isLoaded: state.usersPage.isLoaded
+        isLoaded: state.usersPage.isLoaded,
+        followArrButton: state.usersPage.followArrButton,
+        followBoolButton: state.usersPage.followBoolButton
     }
 }
 
 
 export default connect(MapStateToProps, {
-    followUser,
-    unfollowUser,
-    setUser,
-    setActionPage,
-    setTotalCount,
-    setLoaded
+    followBlock,
+    unFollowBlock,
+    isdisabledButton,
+    getUser
 })(UsersContainer);

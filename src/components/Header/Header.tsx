@@ -1,13 +1,24 @@
 import React from "react";
 import s from './Header.module.css'
+import {MapStateToPropsType} from "./HeaderContainer";
+import {NavLink} from "react-router-dom";
 
-export function Header() {
+export function Header(props : MapStateToPropsType) {
+
+
+
     return (
         <div className={s.header}>
             <header>
-                <img
-                    src='https://banner2.cleanpng.com/20191009/qxh/transparent-social-icon-social-icon-vk-social-logotype-icon-5da68002926890.9161733415711928345997.jpg'/>
-                <h1>Hello</h1>
+                {props.isLog ?
+                    <div>
+                        <div>{props.login}</div>
+                        <div>{props.email}</div>
+                        <div>{props.idAuthor}</div>
+                        <h1>Hello</h1>
+                    </div>
+                    :
+                    <NavLink to='/login'>Login</NavLink>}
             </header>
         </div>
     )

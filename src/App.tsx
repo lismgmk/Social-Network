@@ -13,6 +13,8 @@ import PhotoContainer from "./components/Photo/PhotoContainer";
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/login";
 
 
 
@@ -22,7 +24,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className={s.appWrapper}>
-                <Header/>
+                <HeaderContainer/>
 
                 <Nav/>
                 <div className={s.main}>
@@ -37,6 +39,7 @@ function App() {
                         />
                     }/>
                     <Route path='/news' component = {News}/>
+                    <Route path='/login' component = {Login}/>
                     <Route path='/music' component = {Music}/>
                     <Route path='/setting' component = {Setting}/>
                     <Route path='/photo' render={

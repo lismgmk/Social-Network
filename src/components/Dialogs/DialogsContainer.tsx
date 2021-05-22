@@ -9,6 +9,7 @@ import {AppStateType} from "../../Redux/redux-store";
 
 type MapStateToPropsType = {
     dialogsPage: initialStateType
+    isLog: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -20,7 +21,8 @@ export type DialogStateDispatchType = MapStateToPropsType & MapDispatchToPropsTy
 
 let MapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isLog: state.author.isLog
     }
 }
 
