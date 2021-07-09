@@ -1,31 +1,8 @@
 import React from 'react';
-import {headerApi} from "../Api/api";
+import {getAuthorDataRespType, headerApi} from "../Api/api";
 
-export type AuthorDataType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isLog: boolean
-}
-
-type getAuthorActionType = {
-    type: 'GET_AUTHOR',
-    data: AuthorDataType
-}
-
-type setLogActionType = {
-    type: 'SET_LOG',
-    log: boolean
-}
-
-type ActionType = getAuthorActionType | setLogActionType
-
-const GET_AUTHOR = 'GET_AUTHOR';
-const SET_LOG = 'SET_LOG';
-
-export const getCurentAuthor = (data : AuthorDataType) => ({type: GET_AUTHOR, data});
-export const setLog = (log : boolean) => ({type: SET_LOG, log});
-
+export const getCurentAuthor = (data : getAuthorDataRespType) => ({type: 'GET_AUTHOR', data} as const);
+export const setLog = (log : boolean) => ({type: 'SET_LOG', log} as const);
 
 let initialState = {
     id: null,
@@ -33,8 +10,6 @@ let initialState = {
     login: null,
     isLog: false
 }
-type initialStateUsersType = AuthorDataType
-
 
 const authorReduser = (state: initialStateUsersType = initialState, action: ActionType): initialStateUsersType => {
     switch (action.type) {
@@ -52,7 +27,6 @@ const authorReduser = (state: initialStateUsersType = initialState, action: Acti
             return state
     }
 }
-
 export default authorReduser;
 
 export const getAuthor = () => {
@@ -64,8 +38,19 @@ export const getAuthor = () => {
                         dispatch(setLog(true))
                         dispatch(getCurentAuthor(response.data))
                     }
-
                 })
         }
     )
 }
+
+
+export type AuthorDataType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isLog: boolean
+}
+type initialStateUsersType = AuthorDataType
+type getAuthorActionType = ReturnType<typeof getCurentAuthor>
+type setLogActionType = ReturnType<typeof setLog>
+type ActionType = getAuthorActionType | setLogActionType

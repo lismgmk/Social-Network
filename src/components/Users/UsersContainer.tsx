@@ -6,37 +6,12 @@ import {
     followBlock,
     followUser, getUser, isdisabledButton, setLoaded, setTotalCount,
     setUser, unFollowBlock,
-    unfollowUser, userDateType
 }
     from "../../Redux/usersReduser";
 import {AppStateType} from "../../Redux/redux-store";
-import axios from "axios";
 import Preloader from "../elseElements/Preloader";
-import {userApi} from "../../Api/api";
+import {getUserItemsType} from "../../Api/api";
 
-
-type MapStateToPropsType = {
-    users: Array<userDateType>
-    totalCount: number
-    pageSize: number
-    actionPage: number
-    isLoaded: boolean
-    followArrButton: Array<number>
-    followBoolButton: boolean
-}
-
-type MapDispatchToPropsType = {
-    followBlock: (userId: number) => void
-    unFollowBlock: (userId: number) => void
-    // setUser: (userDate: Array<userDateType>) => void
-    // setActionPage: (page: number) => void
-    // setTotalCount: (totalCount: number) => void
-    // setLoaded: (load: boolean) => void
-    isdisabledButton: (followBoolButton: boolean, id: number) => void
-    getUser: (pageSize: number, actionPage: number)=> void
-}
-
-export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
 
 class UsersContainer extends React.Component <MapStateDispatchType> {
 
@@ -84,10 +59,29 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-
 export default connect(MapStateToProps, {
     followBlock,
     unFollowBlock,
     isdisabledButton,
     getUser
 })(UsersContainer);
+
+type MapStateToPropsType = {
+    users: Array<getUserItemsType>
+    totalCount: number
+    pageSize: number
+    actionPage: number
+    isLoaded: boolean
+    followArrButton: Array<number>
+    followBoolButton: boolean
+}
+
+type MapDispatchToPropsType = {
+    followBlock: (userId: number) => void
+    unFollowBlock: (userId: number) => void
+    isdisabledButton: (followBoolButton: boolean, id: number) => void
+    getUser: (pageSize: number, actionPage: number)=> void
+}
+
+
+export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType

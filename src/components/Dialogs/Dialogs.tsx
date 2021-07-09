@@ -26,7 +26,7 @@ export function Dialogs(props : DialogStateDispatchType) {
     let onSendMessageClick = () => {
         props.addDialog()
     }
-    if(props.isLog) {
+
         return (
 
             <div className={s.dialogs}>
@@ -51,8 +51,5 @@ export function Dialogs(props : DialogStateDispatchType) {
             </div>
 
         )
-    } else{
-       return <Redirect to={"/login"} />
-    }
 
 }

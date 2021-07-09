@@ -1,28 +1,17 @@
 import React from "react";
 import {connect} from "react-redux";
-
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {Dialogs} from "./Dialogs";
 import {addDialogActionCreater, initialStateType, updateNewDialogTextActionCreater} from "../../Redux/dialogsReduser";
 import {AppStateType} from "../../Redux/redux-store";
+import {WithAuthRedirect} from "../../HOK/WithAuthRedirect";
 
 
-type MapStateToPropsType = {
-    dialogsPage: initialStateType
-    isLog: boolean
-}
 
-type MapDispatchToPropsType = {
-    addDialog: () => void
-    updateNewDialogText: (text: string) => void
-}
-
-export type DialogStateDispatchType = MapStateToPropsType & MapDispatchToPropsType;
 
 let MapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
-        isLog: state.author.isLog
     }
 }
 
@@ -37,6 +26,18 @@ let MapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
     }
 }
 
+export default compose<React.ComponentType>(
+    connect(MapStateToProps, MapDispatchToProps),
+    WithAuthRedirect
+)(Dialogs)
 
-const DialogsContainer = connect(MapStateToProps, MapDispatchToProps)(Dialogs);
-export default DialogsContainer
+type MapStateToPropsType = {
+    dialogsPage: initialStateType
+}
+
+type MapDispatchToPropsType = {
+    addDialog: () => void
+    updateNewDialogText: (text: string) => void
+}
+
+export type DialogStateDispatchType = MapStateToPropsType & MapDispatchToPropsType;

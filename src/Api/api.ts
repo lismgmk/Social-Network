@@ -1,42 +1,121 @@
 import axios from "axios";
 
 
- const instance = axios.create({
-     withCredentials: true,
-     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
-     headers: {
-         'API-KEY': '7cacc9fb-3bc3-450f-820c-e03a8609251e'}
+const instance = axios.create({
+    withCredentials: true,
+    baseURL: `https://social-network.samuraijs.com/api/1.0/`,
+    headers: {
+        'API-KEY': 'a40d8e19-8ad7-4404-b77e-7dea185478ff'
+    }
 })
 
 export const userApi = {
-    getUsers (pageSize=3, actionPage=10){
-        return  instance.get(`users?count=${pageSize}&page=${actionPage}`)
-            .then(response => {return response.data})
+    getUsers(pageSize = 3, actionPage = 10){
+        return instance.get<getUserRespType>(`users?count=${pageSize}&page=${actionPage}`)
+            .then(response => {
+                return response.data
+            })
     },
-    unFollow (id){
-        return  instance.delete(`follow/${id}`)
-            .then(response => {return response.data})
+    unFollow(id: number){
+        return instance.delete<postFollowRespType<{}>>(`follow/${id}`)
     },
-    follow (id){
-        return  instance.post(`follow/${id}`, {})
-            .then(response => {return response.data})
+    follow(id: number){
+        return instance.post<postFollowRespType<{}>>(`follow/${id}`)
     },
-    getOneUser (param){
-        return  instance.get(`profile/${param}`)
-            .then(response => {return response.data})
+    getOneUser(param: string){
+        console.warn('try else method')
+        return authorApi.getProfileUser(param)
     }
-
 }
+
 export const headerApi = {
-    getAuthor (){
-        return  instance.get(`auth/me`)
-            .then(response => {return response.data})
+    getAuthor() {
+        return instance.get<getAuthorRespType<getAuthorDataRespType>>(`auth/me`)
+            .then(response => {
+                return response.data
+            })
     }
 }
 
+export const authorApi = {
+    setStatusAuthor(status: string) {
+        debugger
+        return instance.put<postFollowRespType<{}>>(`/profile/status`, {status: status})
+            .then(response => {
+                return response.data
+            })
+    },
+    getStatusAuthor(param: string){
+        return instance.get<string>(`/profile/status/${param}`)
+            .then(response => {
+                return response.data
+            })
+    },
+    getProfileUser(param: string){
+        return instance.get<getProfileUserType>(`profile/${param}`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
 
+export type getAuthorRespType<D> = {
+    data: D
+    messages: string[]
+    fieldsErrors: string[]
+    resultCode: number
+}
 
+export type getAuthorDataRespType = {
+    id: number
+    login: string
+    email: string
+}
 
+export type getUserRespType = {
+    items: Array<getUserItemsType>
+    totalCount: number
+    error: string
+}
 
+export type getUserItemsType = {
+    name: string
+    id: number
+    uniqueUrlName: string
+    photos: {
+        small: string
+        large: string
+    }
+    status: string
+    followed: boolean
+}
 
+export type postFollowRespType<D> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
+
+export type getProfileUserType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: contactsType | null
+    photos: {
+        small: string
+        large: string
+    } | null
+}
+
+type contactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
 

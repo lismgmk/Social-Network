@@ -4,31 +4,30 @@ import s from "./Profile.module.css";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {MapStateDispatchType} from "./ProfileContainer";
 import {Redirect} from "react-router";
+import {setStatusAuthor} from "../../Redux/profile-reducer";
+import {getProfileUserType} from "../../Api/api";
 
-// photosUser: string
-// fullNameUser: string
-// lookingForAJobUser: boolean
-// log: boolean
 
-export function Profile({
-                            photosUser = '',
-                            fullNameUser = 'Lis',
-                            lookingForAJobUser = true,
-                            log = true
-                        }: MapStateDispatchType) {
-    if (log) {
-        return (
-            <div className={s.profile}>
-            <div>{fullNameUser}</div>
+export function Profile(props: ProfileType) {
 
-            <div>{lookingForAJobUser ? 'loooking for a job' : 'jobing'} </div>
-            <ProfileInfo photosUser={photosUser}/>
+    return (
+        <div className={s.profile}>
+            <div>{props.profileUser.fullName}</div>
+
+            <div>{props.profileUser.lookingForAJob ? 'loooking for a job' : 'jobing'} </div>
+            <ProfileInfo
+                profileUser={props.profileUser}
+                statusAuthor={props.statusAuthor}
+                setStatusAuthor={props.setStatusAuthor}
+            />
             <MyPostsContainer/>
         </div>
     )
-} else {
-    return <Redirect to={'/login'} />
-
 }
 
+
+export type ProfileType = {
+    profileUser: getProfileUserType
+    statusAuthor: string
+    setStatusAuthor: (param: string) => void
 }

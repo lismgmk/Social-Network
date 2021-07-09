@@ -1,17 +1,15 @@
 import React from "react";
 import s from './Users.module.css'
 import user from '../../images/user.png'
-import {userDateType} from "../../Redux/usersReduser";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {userApi} from "../../Api/api";
+import {getUserItemsType} from "../../Api/api";
 
 
 type UsersPropstype = {
     totalCount: number
     pageSize: number
     clickActionPage: (p: number) => void
-    users: Array<userDateType>
+    users: Array<getUserItemsType>
     unFollow: (p: number) => void
     follow: (p: number) => void
     actionPage: number
@@ -47,9 +45,11 @@ const Users = (props: UsersPropstype) => {
             </div>
 
 
-            {props.users.map(i => <div key={i.id} className={s.box}>
+            {props.users.map(i =>
+
+                <div
+                key={i.id} className={s.box}>
                     <div className={s.ava}>
-                        {console.log(i.followed)}
                         <NavLink to={"/profile/" + i.id} activeClassName={s.activeLink}>
                             <img src={i.photos.small === null ? user : i.photos.small}/>
                         </NavLink>
@@ -71,15 +71,13 @@ const Users = (props: UsersPropstype) => {
                                 >
                                     follow
                                 </button>
-
-
                         }
 
                     </div>
                     <div className={s.textArea}>
                         <div className={s.nameMessageArea}>
                             <div>{i.name}</div>
-                            <div>{i.message}</div>
+                            <div>{i.status}</div>
                         </div>
 
                     </div>
