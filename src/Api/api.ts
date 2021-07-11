@@ -1,4 +1,5 @@
 import axios from "axios";
+import {IUser} from "../components/Form/LoginForm";
 
 
 const instance = axios.create({
@@ -34,8 +35,16 @@ export const headerApi = {
             .then(response => {
                 return response.data
             })
+    },
+    logInAuthor(formData: formDataType) {
+        return instance.post<postFollowRespType<{ userId: number}>>('/auth/login', formData)
+    },
+    logOutAuthor() {
+        return instance.delete<postFollowRespType<{}>>('/auth/login')
     }
 }
+
+
 
 export const authorApi = {
     setStatusAuthor(status: string) {
@@ -58,6 +67,8 @@ export const authorApi = {
             })
     }
 }
+
+export type formDataType = IUser & {captcha?: boolean}
 
 export type getAuthorRespType<D> = {
     data: D

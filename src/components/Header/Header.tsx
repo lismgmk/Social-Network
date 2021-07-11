@@ -1,9 +1,10 @@
 import React from "react";
 import s from './Header.module.css'
-import {MapStateToPropsType} from "./HeaderContainer";
+import {MapStateDispatchLogType} from "./HeaderContainer";
 import {NavLink} from "react-router-dom";
+import {Button} from "@material-ui/core";
 
-export function Header(props : MapStateToPropsType) {
+export function Header(props : MapStateDispatchLogType) {
 
 
 
@@ -19,6 +20,12 @@ export function Header(props : MapStateToPropsType) {
                     </div>
                     :
                     <NavLink to='/login'>Login</NavLink>}
+
+                {props.isLog && <Button variant="contained"
+                        color="secondary"
+                        type="button"
+                        onClick={()=>{props.logOutAuthor()}}>Log Out
+                </Button>}
             </header>
         </div>
     )

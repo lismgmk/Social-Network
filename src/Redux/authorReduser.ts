@@ -1,5 +1,5 @@
 import React from 'react';
-import {getAuthorDataRespType, headerApi} from "../Api/api";
+import {formDataType, getAuthorDataRespType, headerApi} from "../Api/api";
 
 export const getCurentAuthor = (data : getAuthorDataRespType) => ({type: 'GET_AUTHOR', data} as const);
 export const setLog = (log : boolean) => ({type: 'SET_LOG', log} as const);
@@ -37,6 +37,44 @@ export const getAuthor = () => {
                     if(response.resultCode === 0){
                         dispatch(setLog(true))
                         dispatch(getCurentAuthor(response.data))
+                    }
+                })
+        }
+    )
+}
+export const logInAuthor = (formData: formDataType) => {
+    return(
+        (dispatch) => {
+            headerApi.logInAuthor(formData)
+                .then(response => {
+                    if(response.data.resultCode === 0){
+                        dispatch(setLog(true))
+                        dispatch(getCurentAuthor(
+                            { id: response.data.data.userId,
+                                email: formData.email,
+                                login: ''}
+                            )
+
+                        )
+                    }
+                })
+        }
+    )
+}
+export const logOutAuthor = () => {
+    return(
+        (dispatch) => {
+            headerApi.logOutAuthor()
+                .then(response => {
+                    if(response.data.resultCode === 0){
+                        dispatch(setLog(false))
+                        dispatch(getCurentAuthor(
+                            { id: 0,
+                                email: '',
+                                login: ''}
+                            )
+
+                        )
                     }
                 })
         }
