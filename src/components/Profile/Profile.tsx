@@ -1,11 +1,9 @@
 import React from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import s from "./Profile.module.css";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {MapStateDispatchType} from "./ProfileContainer";
-import {Redirect} from "react-router";
-import {setStatusAuthor} from "../../Redux/profile-reducer";
+
 import {getProfileUserType} from "../../Api/api";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 export function Profile(props: ProfileType) {

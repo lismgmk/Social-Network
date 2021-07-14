@@ -23,7 +23,7 @@ export const userApi = {
     follow(id: number){
         return instance.post<postFollowRespType<{}>>(`follow/${id}`)
     },
-    getOneUser(param: string){
+    getOneUser(param: number){
         console.warn('try else method')
         return authorApi.getProfileUser(param)
     }
@@ -54,13 +54,13 @@ export const authorApi = {
                 return response.data
             })
     },
-    getStatusAuthor(param: string){
+    getStatusAuthor(param: number){
         return instance.get<string>(`/profile/status/${param}`)
             .then(response => {
                 return response.data
             })
     },
-    getProfileUser(param: string){
+    getProfileUser(param: number){
         return instance.get<getProfileUserType>(`profile/${param}`)
             .then(response => {
                 return response.data

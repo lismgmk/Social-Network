@@ -13,14 +13,15 @@ import {getProfileUserType} from "../../Api/api";
 let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profileUser: state.profilePage.profileUser,
-        statusAuthor: state.profilePage.statusAuthor
+        statusAuthor: state.profilePage.statusAuthor,
+        authorId: state.author.id
     }
 }
 
 class ProfileClassContainer extends React.Component <PropsType> {
     componentDidMount() {
-        let param = this.props.match.params.userId;
-        if(!param) param = '2';
+        let param = this.props.authorId;
+        if(!param) param = 2;
         this.props.getProfileUser(param)
         this.props.getStatusAuthor(param)
     };
@@ -55,10 +56,11 @@ type PropsType = RouteComponentProps<PathParamsType> & MapStateDispatchType
 type MapStateToPropsType = {
     profileUser: getProfileUserType
     statusAuthor: string
+    authorId: number | null
 }
 type MapDispatchToPropsType = {
-    getProfileUser: (id: string) => void
-    getStatusAuthor: (param: string) => void
+    getProfileUser: (id: number) => void
+    getStatusAuthor: (param: number) => void
     setStatusAuthor: (param: string) => void
 }
 export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType

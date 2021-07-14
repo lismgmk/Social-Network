@@ -12,6 +12,9 @@ export function ProfileInfo(props: ProfileType) {
         <div className={s.profileInfo}>
             <div>
                 <div><img src={`${props.profileUser.photos?.large ? props.profileUser.photos.small : user}`}/></div>
+            <div>{props.profileUser.fullName}</div>
+            <div>{props.profileUser.contacts?.github}</div>
+            <div>{props.profileUser.lookingForAJobDescription}</div>
             </div>
             <div>
                <ProfileStatus

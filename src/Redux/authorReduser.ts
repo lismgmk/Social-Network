@@ -1,5 +1,6 @@
 import React from 'react';
 import {formDataType, getAuthorDataRespType, headerApi} from "../Api/api";
+import {getProfileUser} from "./profile-reducer";
 
 export const getCurentAuthor = (data : getAuthorDataRespType) => ({type: 'GET_AUTHOR', data} as const);
 export const setLog = (log : boolean) => ({type: 'SET_LOG', log} as const);
@@ -49,11 +50,7 @@ export const logInAuthor = (formData: formDataType) => {
                 .then(response => {
                     if(response.data.resultCode === 0){
                         dispatch(setLog(true))
-                        dispatch(getCurentAuthor(
-                            { id: response.data.data.userId,
-                                email: formData.email,
-                                login: ''}
-                            )
+                        dispatch(getProfileUser(response.data.data.userId)
 
                         )
                     }

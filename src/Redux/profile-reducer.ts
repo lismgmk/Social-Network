@@ -1,45 +1,41 @@
 import {authorApi, getProfileUserType, headerApi, userApi} from "../Api/api";
 
-export const addPost = () => ({type: 'ADDPOST'} as const);
-export const updateNewPostText = (text: string) => ({type: 'UPDATENEWPOSTTEXT', text} as const);
+export const addPost = (text: string) => ({type: 'ADDPOST', text} as const);
+// export const updateNewPostText = (text: string) => ({type: 'UPDATENEWPOSTTEXT', text} as const);
 export const addProfileUser = (model: getProfileUserType) => ({type: 'ADD_PROFILE_USER', model} as const);
 export const getStatus = (status: string) => ({type: 'GET_STATUS_USER', status} as const);
 
 
 let initialState: InitStateProfileType = {
-    posts: [
-        {message: 'Hello', id: 1, likeCount: 12},
-        {message: 'Hi', id: 2, likeCount: 1}
-    ],
-    newPostText: '',
+    posts: [ {id: 1, message: 'Hi, how are you?', likeCount: 12},
+        {id: 2, message: 'It\'s my first post', likeCount: 11}],
+    // newPostText: '',
     profileUser: {
         userId: 1,
         lookingForAJob: true,
         lookingForAJobDescription: '',
         fullName: '',
         contacts: null,
-        photos: null
+        photos: null,
     },
-    statusAuthor: ''
+    statusAuthor: '',
 }
 
 
 const profileReduser = (state: InitStateProfileType = initialState, action: ActionsTypes): InitStateProfileType => {
     switch (action.type) {
         case 'ADDPOST':
-            let newPosts = {message: state.newPostText, id: 3, likeCount: 10};
-            let newStates: Array<postsType> = [...state.posts, newPosts]
+
             return {
                 ...state,
-                posts: newStates,
-                newPostText: ''
+                posts: [...state.posts, {message: action.text, id: 3, likeCount: 10}]
             }
-        case 'UPDATENEWPOSTTEXT': {
-            return {
-                ...state,
-                newPostText: action.text
-            }
-        }
+        // case 'UPDATENEWPOSTTEXT': {
+        //     return {
+        //         ...state,
+        //         newPostText: action.text
+        //     }
+        // }
         case 'ADD_PROFILE_USER': {
             return {
                 ...state,
@@ -53,15 +49,13 @@ const profileReduser = (state: InitStateProfileType = initialState, action: Acti
                 statusAuthor: action.status
             }
         }
-
-
         default:
             return state
     }
 }
 export default profileReduser;
 
-export const getProfileUser = (param: string) => {
+export const getProfileUser = (param: number) => {
     return (
         (dispatch) => {
             authorApi.getProfileUser(param)
@@ -70,7 +64,7 @@ export const getProfileUser = (param: string) => {
                 })
         })
 }
-export const getStatusAuthor = (param: string) => {
+export const getStatusAuthor = (param: number) => {
     return (
         (dispatch) => {
             debugger
@@ -92,12 +86,12 @@ export const setStatusAuthor = (status: string) => (dispatch) => {
 
 export type InitStateProfileType = {
     posts: Array<postsType>
-    newPostText: string
+    // newPostText: string
     profileUser: getProfileUserType
     statusAuthor: string
 }
 
-type postsType =
+export type postsType =
     {
         message: string
         id: number
@@ -105,12 +99,12 @@ type postsType =
     }
 
 type addPostType = ReturnType<typeof addPost>
-type updateNewPostTextType = ReturnType<typeof updateNewPostText>
+// type updateNewPostTextType = ReturnType<typeof updateNewPostText>
 type addProfileUserType = ReturnType<typeof addProfileUser>
 type getStatusType = ReturnType<typeof getStatus>
 
 type ActionsTypes =
     | addPostType
-    | updateNewPostTextType
+    // | updateNewPostTextType
     | addProfileUserType
     | getStatusType

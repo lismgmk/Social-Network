@@ -1,36 +1,65 @@
 import React from "react";
 import {
     addPost,
-    InitStateProfileType,
-    updateNewPostText
+    postsType,
 } from "../../../Redux/profile-reducer";
-import {MyPosts} from "./MyPosts";
+import {MyPostsForm} from "./MyPostsForm";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
+import {Post} from "./Post/Post";
+import s from "./MyPosts.module.css";
+import {reduxForm} from "redux-form";
 
 
-
-type MapStateToPropsType = {
-    profilePage: InitStateProfileType
-}
-
-type MapDispatchToPropsType = {
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-}
-
-export type MapStateDispatchType = MapStateToPropsType & MapDispatchToPropsType
-
-let MapStateToProps = (state: AppStateType):MapStateToPropsType => {
+let MapStateToPropsPosts = (state: AppStateType): MapStateToPropsType => {
     return {
-        profilePage: state.profilePage
+        profilePagePosts: state.profilePage.posts
     }
 }
 
 
+export function MyPosts(props: MapStateDispatchPostsType) {
+
+    const postsElements =
+        props.profilePagePosts.map(p => <Post
+            message={p.message}
+            likeCount={p.likeCount}
+        />)
+
+    const onAddPost = (value: myFormPostsType)=> {
+        props.addPost(value.textarea)
+    }
+
+    return (
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
+                <MyPostsFormRedux onSubmit={onAddPost}/>
+            <div className={s.posts}>
+                {postsElements}
+            </div>
+        </div>
+    )
+}
 
 
-const MyPostsContainer = connect(MapStateToProps, {
-    addPost,
-    updateNewPostText})(MyPosts);
-export default MyPostsContainer
+
+export default connect(MapStateToPropsPosts, {addPost})(MyPosts)
+
+let MyPostsFormRedux = reduxForm<myFormPostsType, {}>({
+    form: 'myPostsForm'
+})(MyPostsForm)
+
+
+type MapDispatchToPropsType = {
+    addPost: (val: string) => void
+}
+type MapStateToPropsType = {
+    profilePagePosts: Array<postsType>
+}
+
+type MapStateDispatchPostsType = MapStateToPropsType & MapDispatchToPropsType
+
+
+export type myFormPostsType = {
+    textarea: string
+}

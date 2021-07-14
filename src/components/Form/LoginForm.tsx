@@ -6,7 +6,7 @@ import {logInAuthor} from "../../Redux/authorReduser";
 import {formDataType, getProfileUserType} from "../../Api/api";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {RouteComponentProps} from "react-router/ts4.0";
+import {Redirect} from "react-router";
 
 export type IUser = {
     email: string
@@ -75,6 +75,10 @@ class LoginForm extends React.Component<InjectedFormProps<IUser> & PropsType> {
     render() {
         const {handleSubmit, pristine, reset, submitting} = this.props
 
+        if(this.props.isLog){
+            return <Redirect to={'/profile'}/>
+        }
+
         return (
             <form onSubmit={handleSubmit((data)=>this.props.logInAuthor(data))}>
                 <Container>
@@ -108,7 +112,8 @@ class LoginForm extends React.Component<InjectedFormProps<IUser> & PropsType> {
 }
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        statusAuthor: state.profilePage.statusAuthor
+        statusAuthor: state.profilePage.statusAuthor,
+        isLog: state.author.isLog
     }
 }
 const LoginForms = connect(mapStateToProps, {logInAuthor})(LoginForm)
@@ -124,6 +129,7 @@ export default reduxForm<IUser>({
 
 type MapStateToPropsType = {
     statusAuthor: string
+    isLog: boolean
 }
 type MapDispatchToPropsType = {
     logInAuthor: (values: formDataType) => void

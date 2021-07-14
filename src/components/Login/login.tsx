@@ -3,7 +3,7 @@ import LoginForm from "../Form/LoginForm";
 
 const Login = (props) => {
     return <>
-    <LoginForm/>
+     <LoginForm/>
     </>
 }
 
