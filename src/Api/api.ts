@@ -1,6 +1,4 @@
-import axios from "axios";
-import {IUser} from "../components/Form/LoginForm";
-
+import axios from "axios"
 
 const instance = axios.create({
     withCredentials: true,
@@ -44,8 +42,6 @@ export const headerApi = {
     }
 }
 
-
-
 export const authorApi = {
     setStatusAuthor(status: string) {
         debugger
@@ -66,6 +62,11 @@ export const authorApi = {
                 return response.data
             })
     }
+}
+export type IUser = {
+    email: string
+    password: string
+    rememberMe: boolean
 }
 
 export type formDataType = IUser & {captcha?: boolean}

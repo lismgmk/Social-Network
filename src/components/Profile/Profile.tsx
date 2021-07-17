@@ -1,9 +1,10 @@
 import React from "react";
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+
 import s from "./Profile.module.css";
 
 import {getProfileUserType} from "../../Api/api";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 
 export function Profile(props: ProfileType) {

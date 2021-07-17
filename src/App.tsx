@@ -4,11 +4,12 @@ import {Nav} from "./components/Nav/Nav";
 import {BrowserRouter, Route} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/login";
+import Login from "./components/Login/LoginContainer";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import LoginContainer from "./components/Login/LoginContainer";
 
 
 
@@ -28,7 +29,7 @@ function App() {
                     <Route path='/message' render={
                         () => <DialogsContainer/>
                     }/>
-                    <Route path='/login' component={Login}/>
+                    <Route path='/login' component={LoginContainer}/>
                     <Route path='/users' render={
                         () => <UsersContainer/>
                     }/>

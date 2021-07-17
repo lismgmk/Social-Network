@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Users.module.css'
-import user from '../../images/user.png'
+import user from '../../images/user.svg'
 import {NavLink} from "react-router-dom";
 import {getUserItemsType} from "../../Api/api";
 

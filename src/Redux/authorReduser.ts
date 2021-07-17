@@ -48,10 +48,10 @@ export const logInAuthor = (formData: formDataType) => {
         (dispatch) => {
             headerApi.logInAuthor(formData)
                 .then(response => {
+                    debugger
                     if(response.data.resultCode === 0){
                         dispatch(setLog(true))
                         dispatch(getProfileUser(response.data.data.userId)
-
                         )
                     }
                 })

@@ -11,17 +11,18 @@ let initialState : initialStateType = {
         {message: 'Hi hello', id: 1},
         {message: 'Good morning', id: 2},
     ],
-    newDialogText: ''
+
 }
 
 const dialogsReduser = (state: initialStateType = initialState, action: ActionType):initialStateType => {
     switch (action.type) {
         case 'ADDDIALOG':
             let newDialog = {name: 'Sergey E', id: 7};
-            let newMessage = {message: state.newDialogText, id: 7};
-            return {...state, dialogs: [...state.dialogs,  newDialog], message: [...state.message, newMessage], newDialogText: ''};
-        case 'UPDATENEWDIALOGTEXT':
-            return {...state, newDialogText: action.text}
+            let newMessage = {message: action.text, id: 7};
+            return {...state,
+                dialogs: [...state.dialogs,  newDialog],
+                message: [...state.message, newMessage]
+            }
         default:
             return state
     }
@@ -29,9 +30,7 @@ const dialogsReduser = (state: initialStateType = initialState, action: ActionTy
 
 export default dialogsReduser;
 
-export const addDialogActionCreater = () => ({type : 'ADDDIALOG'} as const)
-export const updateNewDialogTextActionCreater = (text: string) => ({type : 'UPDATENEWDIALOGTEXT', text} as const)
-
+export const addDialogActionCreater = (text: string) => ({type : 'ADDDIALOG', text} as const)
 
 type dialogsType = {
     name: string
@@ -46,9 +45,8 @@ type messageType = {
 export type initialStateType = {
     dialogs: Array<dialogsType>
     message: Array<messageType>
-    newDialogText: string
 }
 
 export type ActionType =
     | ReturnType<typeof addDialogActionCreater>
-    | ReturnType<typeof updateNewDialogTextActionCreater>
+

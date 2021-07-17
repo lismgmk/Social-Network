@@ -1,10 +1,7 @@
 import React from "react";
-import {Post} from "./Post/Post";
-import s from "./MyPosts.module.css"
-import {myFormPostsType} from "./MyPostsContainer";
-
-import {IUser} from "../../Form/LoginForm";
 import {Field} from "redux-form";
+import {maxLength20, required} from "../../helpers/validation";
+import {TextArea} from "../../helpers/renderField";
 
 export let MyPostsForm = (props
                               // :InjectedFormProps<myFormPostsType> & PropsType
@@ -14,10 +11,9 @@ export let MyPostsForm = (props
            <Field
                name="textarea"
                type="text"
-               component="textarea"
-               // label="Username"
-               // validate={[required, maxLength15, minLength2]}
-               // warn={alphaNumeric}
+               component={TextArea}
+               label="Enter message"
+               validate={[required, maxLength20]}
            />
 
        </div>
@@ -35,13 +31,3 @@ export let MyPostsForm = (props
 
 
 
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div>
-        <label>{label}</label>
-        <div>
-            <input {...input} placeholder={label} type={type} />
-            {touched && error && <span>{error}</span>}
-        </div>
-    </div>
-)

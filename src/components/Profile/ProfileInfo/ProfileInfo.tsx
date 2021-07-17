@@ -1,12 +1,11 @@
 import s from "./ProfileInfo.module.css";
 import React from "react";
-import user from '../../../images/user.png'
+import user from '../../../images/user.svg'
 import {ProfileStatus} from "./ProfileStatus";
-import {setStatusAuthor} from "../../../Redux/profile-reducer";
 import {ProfileType} from "../Profile";
 
 
-export function ProfileInfo(props: ProfileType) {
+export function ProfileInfo (props: ProfileType) {
 
     return (
         <div className={s.profileInfo}>

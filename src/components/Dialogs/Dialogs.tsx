@@ -4,6 +4,10 @@ import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
 import {DialogStateDispatchType} from "./DialogsContainer";
 import {Redirect} from "react-router";
+import {Field, reduxForm} from "redux-form";
+import {TextArea} from "../helpers/renderField";
+import {maxLength20, required} from "../helpers/validation";
+
 
 
 export function Dialogs(props : DialogStateDispatchType) {
@@ -18,13 +22,8 @@ export function Dialogs(props : DialogStateDispatchType) {
         return  <Message message={item.message} />
     });
 
-    let onDialogChange = (e) => {
-        let text = e.target.value;
-        props.updateNewDialogText(text)
-    }
-
-    let onSendMessageClick = () => {
-        props.addDialog()
+    let addDialog = (value: myFormPostsType) => {
+        props.addDialog(value.textarea)
     }
 
         return (
@@ -38,18 +37,36 @@ export function Dialogs(props : DialogStateDispatchType) {
                     {getMessage}
                 </div>
 
-                <div className={s.dialogsWrapper}>
-
-                    <textarea onChange={onDialogChange}
-                              value={state.newDialogText}
-                              placeholder='Enter your message'
-                    />
-
-                    <button onClick={onSendMessageClick}>Add post</button>
-                </div>
+               <DialogsRedaxForm onSubmit={addDialog}/>
 
             </div>
 
         )
+}
 
+const DialogsForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div className={s.dialogsWrapper}>
+
+                <Field
+                    name="textarea"
+                    type="text"
+                    component={TextArea}
+                    label="Enter message"
+                    validate={[required, maxLength20]}
+                />
+
+                <button>Add post</button>
+            </div>
+    </form>
+    )
+}
+
+let DialogsRedaxForm = reduxForm<myFormPostsType, {}>({
+    form: 'dialogsForm'
+})(DialogsForm)
+
+type myFormPostsType = {
+    textarea: string
 }
