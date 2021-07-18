@@ -50,13 +50,13 @@ export const authorApi = {
                 return response.data
             })
     },
-    getStatusAuthor(param: number){
+    getStatusAuthor(param: number | null){
         return instance.get<string>(`/profile/status/${param}`)
             .then(response => {
                 return response.data
             })
     },
-    getProfileUser(param: number){
+    getProfileUser(param: number | null){
         return instance.get<getProfileUserType>(`profile/${param}`)
             .then(response => {
                 return response.data

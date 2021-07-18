@@ -7,7 +7,7 @@ import {isEmail, maxLength7, required} from "../helpers/validation";
 
 
 function LoginForm(props: InjectedFormProps<IUser>) {
-    const {handleSubmit, pristine, reset, submitting} = props
+    const {handleSubmit, pristine, reset, submitting, error} = props
     debugger
     return (
         <form onSubmit={handleSubmit}>
@@ -40,6 +40,10 @@ function LoginForm(props: InjectedFormProps<IUser>) {
                             component={CheckBoxInput}/>
                     </div>
                 </Grid>
+                {error && <div>
+                    {error}
+                </div>}
+
                 <Grid container item xs={8} spacing={1}>
                     <div>
                         <Button variant="contained"

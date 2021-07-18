@@ -1,9 +1,6 @@
 import React from 'react';
 import {formDataType, getAuthorDataRespType, headerApi} from "../Api/api";
-import {getProfileUser} from "./profile-reducer";
-
-export const getCurentAuthor = (data : getAuthorDataRespType) => ({type: 'GET_AUTHOR', data} as const);
-export const setLog = (log : boolean) => ({type: 'SET_LOG', log} as const);
+import {stopSubmit} from "redux-form";
 
 let initialState = {
     id: null,
@@ -17,12 +14,7 @@ const authorReduser = (state: initialStateUsersType = initialState, action: Acti
         case "GET_AUTHOR":
             return {
                 ...state,
-                ...action.data
-            }
-        case "SET_LOG":
-            return {
-                ...state,
-                isLog: action.log
+                ...action.payload
             }
         default:
             return state
@@ -30,54 +22,55 @@ const authorReduser = (state: initialStateUsersType = initialState, action: Acti
 }
 export default authorReduser;
 
-export const getAuthor = () => {
-    return(
-        (dispatch) => {
-            headerApi.getAuthor()
-                .then(response => {
-                    if(response.resultCode === 0){
-                        dispatch(setLog(true))
-                        dispatch(getCurentAuthor(response.data))
-                    }
-                })
-        }
-    )
-}
+export const getCurentAuthor = (id, login, email, isLog) => ({
+    type: 'GET_AUTHOR', payload: {
+        id, email, login, isLog
+    }
+} as const)
+
+export const getAuthor = () =>
+    (dispatch) => {
+       return  headerApi.getAuthor()
+            .then(response => {
+                if (response.resultCode === 0) {
+                    let {id, login, email} = response.data
+                    dispatch(getCurentAuthor(id, email, login, true)
+                    )
+                }
+            })
+    }
+
+
 export const logInAuthor = (formData: formDataType) => {
-    return(
+    return (
         (dispatch) => {
             headerApi.logInAuthor(formData)
                 .then(response => {
                     debugger
-                    if(response.data.resultCode === 0){
-                        dispatch(setLog(true))
-                        dispatch(getProfileUser(response.data.data.userId)
+                    if (response.data.resultCode === 0) {
+                        dispatch(getAuthor()
                         )
+                    } else {
+                        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+                        dispatch(stopSubmit('loginForm', {_error: message}))
                     }
                 })
         }
     )
 }
 export const logOutAuthor = () => {
-    return(
+    return (
         (dispatch) => {
             headerApi.logOutAuthor()
                 .then(response => {
-                    if(response.data.resultCode === 0){
-                        dispatch(setLog(false))
-                        dispatch(getCurentAuthor(
-                            { id: 0,
-                                email: '',
-                                login: ''}
-                            )
-
+                    if (response.data.resultCode === 0) {
+                        dispatch(getCurentAuthor(null, null, null, false)
                         )
                     }
                 })
         }
     )
 }
-
 
 export type AuthorDataType = {
     id: number | null
@@ -87,5 +80,4 @@ export type AuthorDataType = {
 }
 type initialStateUsersType = AuthorDataType
 type getAuthorActionType = ReturnType<typeof getCurentAuthor>
-type setLogActionType = ReturnType<typeof setLog>
-type ActionType = getAuthorActionType | setLogActionType
+type ActionType = getAuthorActionType

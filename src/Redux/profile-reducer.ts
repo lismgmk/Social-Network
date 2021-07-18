@@ -9,7 +9,6 @@ export const getStatus = (status: string) => ({type: 'GET_STATUS_USER', status} 
 let initialState: InitStateProfileType = {
     posts: [ {id: 1, message: 'Hi, how are you?', likeCount: 12},
         {id: 2, message: 'It\'s my first post', likeCount: 11}],
-    // newPostText: '',
     profileUser: {
         userId: 1,
         lookingForAJob: true,
@@ -30,12 +29,6 @@ const profileReduser = (state: InitStateProfileType = initialState, action: Acti
                 ...state,
                 posts: [...state.posts, {message: action.text, id: 3, likeCount: 10}]
             }
-        // case 'UPDATENEWPOSTTEXT': {
-        //     return {
-        //         ...state,
-        //         newPostText: action.text
-        //     }
-        // }
         case 'ADD_PROFILE_USER': {
             return {
                 ...state,
@@ -55,7 +48,7 @@ const profileReduser = (state: InitStateProfileType = initialState, action: Acti
 }
 export default profileReduser;
 
-export const getProfileUser = (param: number) => {
+export const getProfileUser = (param: number| null) => {
     return (
         (dispatch) => {
             authorApi.getProfileUser(param)
@@ -64,7 +57,7 @@ export const getProfileUser = (param: number) => {
                 })
         })
 }
-export const getStatusAuthor = (param: number) => {
+export const getStatusAuthor = (param: number | null) => {
     return (
         (dispatch) => {
             debugger

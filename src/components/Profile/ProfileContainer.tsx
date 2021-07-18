@@ -20,11 +20,17 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 class ProfileClassContainer extends React.Component <PropsType> {
     componentDidMount() {
-        let param = this.props.authorId;
-        if(!param) param = 2;
-        this.props.getProfileUser(param)
-        this.props.getStatusAuthor(param)
-    };
+        let param : number | null = +this.props.match.params.userId
+        if(!param) {
+            param = this.props.authorId
+            if(!param){
+                this.props.history.push("/login");
+            }
+        } else {
+            this.props.getProfileUser(param)
+            this.props.getStatusAuthor(param)
+        }
+    }
     render() {
         return (
             <>
@@ -44,7 +50,7 @@ export default compose<React.ComponentType>(
         getProfileUser, getStatusAuthor, setStatusAuthor
     }),
     withRouter,
-    WithAuthRedirect
+    // WithAuthRedirect
    )(ProfileClassContainer)
 
 // Type whatever you expect in 'this.props.match.params.*'

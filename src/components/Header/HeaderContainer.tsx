@@ -2,7 +2,7 @@ import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {AuthorDataType, getAuthor, logOutAuthor, setLog} from "../../Redux/authorReduser";
+import {AuthorDataType, getAuthor, logOutAuthor} from "../../Redux/authorReduser";
 
 let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -15,9 +15,7 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 
 class HeaderContainer extends React.Component <MapStateDispatchLogType> {
-    componentDidMount() {
-        this.props.getAuthor()
-    }
+
 
     render() {
         return (
@@ -27,7 +25,7 @@ class HeaderContainer extends React.Component <MapStateDispatchLogType> {
                 login={this.props.login}
                 isLog={this.props.isLog}
                 logOutAuthor={this.props.logOutAuthor}
-                getAuthor={this.props.getAuthor}
+                // getAuthor={this.props.getAuthor}
             />
         )
     }
@@ -47,7 +45,6 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    getAuthor: () => void
     logOutAuthor: () => void
 }
 
