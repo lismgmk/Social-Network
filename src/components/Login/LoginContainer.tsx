@@ -3,20 +3,20 @@ import {logInAuthor} from "../../Redux/authorReduser";
 import {formDataType} from "../../Api/api";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import LoginForm from "../Form/LoginForm";
+import LoginForm, {captchaType} from "../Form/LoginForm";
 import {reduxForm} from "redux-form";
 import {Redirect} from "react-router";
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         statusAuthor: state.profilePage.statusAuthor,
-        isLog: state.author.isLog
+        isLog: state.author.isLog,
+        captcha: state.app.captcha
     }
 }
 
-const LoginReduxForm = reduxForm<formDataType, {}>({
+const LoginReduxForm = reduxForm<formDataType, captchaType>({
     form: 'loginForm'
-    // validateLogin
 })(LoginForm)
 
 
@@ -27,7 +27,7 @@ debugger
     if (props.isLog) {
         return <Redirect to={'/profile'}/>
     }
-        return <LoginReduxForm onSubmit={loginAuthor} />
+        return <LoginReduxForm onSubmit={loginAuthor} captcha={props.captcha}/>
 
 }
 
@@ -39,6 +39,7 @@ export default LoginContainer
 type MapStateToPropsType = {
     statusAuthor: string
     isLog: boolean
+    captcha?: string
 }
 type MapDispatchToPropsType = {
     logInAuthor: (values: formDataType) => void

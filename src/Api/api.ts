@@ -1,4 +1,6 @@
 import axios from "axios"
+import {IUser} from "../components/helpers/renderField";
+
 
 const instance = axios.create({
     withCredentials: true,
@@ -63,13 +65,9 @@ export const authorApi = {
             })
     }
 }
-export type IUser = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 
-export type formDataType = IUser & {captcha?: boolean}
+
+export type formDataType = IUser & {captcha?: string}
 
 export type getAuthorRespType<D> = {
     data: D

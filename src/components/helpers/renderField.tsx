@@ -1,10 +1,21 @@
 import React from "react";
-// import TextField from "@material-ui/core/TextField";
-// import {Checkbox, FormControlLabel} from "@material-ui/core";
+import {Field, WrappedFieldProps} from "redux-form";
+import {WrappedFieldMetaProps} from "redux-form/lib/Field";
+import {validateType} from "./validation";
 
+type FormCreateFieldType = {
+    children: React.ReactNode
+    label: string
+    meta: WrappedFieldMetaProps
+}
 
+type ComponentType = (props: WrappedFieldProps & FormCreateFieldType) => void
 
-export const FormCreateField = ({ input, children, label, type, meta: { touched, error }, ...elseProps }) => {
+export const FormCreateField = ({
+                                    children,
+                                    label,
+                                    meta: {touched, error}
+                                }: FormCreateFieldType) => {
     return (
         <div>
             <label>{label}</label>
@@ -16,53 +27,49 @@ export const FormCreateField = ({ input, children, label, type, meta: { touched,
     )
 }
 
-export const TextArea = (props) => {return (
-    <FormCreateField {...props}>
-    <textarea {...props.input} placeholder={props.label} type={props.type} {...props.elseProps}/>
-</FormCreateField>
-)
+export const TextArea: ComponentType = (props) => {
+    return (
+        <FormCreateField {...props}>
+            <textarea {...props.input} placeholder={props.label} {...props}/>
+        </FormCreateField>
+    )
 }
-export const TextInput = (props) => {return (
-    <FormCreateField {...props}>
-        <input {...props.input} placeholder={props.label} type={props.type}/>
-</FormCreateField>
-)
+export const TextInput: ComponentType  = (props) => {
+    return (
+        <FormCreateField {...props}>
+            <input {...props.input} placeholder={props.label} {...props}/>
+        </FormCreateField>
+    )
 }
-export const CheckBoxInput = (props) => {return (
-    <FormCreateField {...props}>
-        <input {...props.input} placeholder={props.label} type={props.type}/>
-</FormCreateField>
-)
+export const CheckBoxInput: ComponentType  = (props) => {
+    return (
+        <FormCreateField {...props}>
+            <input {...props.input} placeholder={props.label} {...props}/>
+        </FormCreateField>
+    )
 }
 
+export function RenderField<Keys extends string>(
+    name: Keys,
+    component: string | ComponentType,
+    label: string,
+    validate: string | Array<validateType>,
+    type: string) {
+    return (
+        <Field
+            type={type}
+            name={name}
+            component={component}
+            label={label}
+            validate={validate}
+        />
+    )
+}
 
-// export const renderTextField = ({
-//                              label,
-//                              input,
-//                              meta: { touched, invalid, error },
-//                              ...custom
-//                          }) => (
-//     <TextField
-//         label={label}
-//         placeholder={label}
-//         error={touched && invalid}
-//         helperText={touched && error}
-//         {...input}
-//         {...custom}
-//
-//     />
-// )
-//
-// export const renderCheckbox = ({ input, label }) => (
-//     <div>
-//         <FormControlLabel
-//             control={
-//                 <Checkbox
-//                     checked={input.value ? true : false}
-//                     onChange={input.onChange}
-//                 />
-//             }
-//             label={label}
-//         />
-//     </div>
-// )
+export type IUser = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+
+export type IUserKey =  Extract<keyof IUser, string>

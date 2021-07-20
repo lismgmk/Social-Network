@@ -8,7 +8,6 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import {connect} from "react-redux";
-import {getAuthor, logOutAuthor} from "./Redux/authorReduser";
 import {compose} from "redux";
 import { withRouter} from "react-router";
 import {AppStateType} from "./Redux/redux-store";

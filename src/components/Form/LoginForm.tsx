@@ -1,55 +1,37 @@
 import {Field, InjectedFormProps} from "redux-form";
 import {Button, Container, Grid} from "@material-ui/core";
-import {CheckBoxInput, TextInput} from "../helpers/renderField";
+import {CheckBoxInput, IUser, IUserKey, RenderField, TextInput} from "../helpers/renderField";
 import React from "react";
-import {IUser} from "../../Api/api";
-import {isEmail, maxLength7, required} from "../helpers/validation";
 
+import { maxLength7, required} from "../helpers/validation";
 
-function LoginForm(props: InjectedFormProps<IUser>) {
-    const {handleSubmit, pristine, reset, submitting, error} = props
-    debugger
+export type captchaType = {
+    captcha: string | undefined
+}
+
+function LoginForm(props: InjectedFormProps<IUser, captchaType> & captchaType) {
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={props.handleSubmit}>
             <Container>
                 <Grid container item xs={8} spacing={1}>
-                    <Field
-                        name="email"
-                        component={TextInput}
-                        label="Email"
-                        validate={[required, isEmail]}
-                    />
+                    {RenderField<IUserKey>("email", TextInput, 'email', [required], 'text')}
                 </Grid>
                 <Grid container item xs={8} spacing={1}>
-                    <div>
-                        <Field
-                            name="password"
-                            component={TextInput}
-                            type='password'
-                            label="password"
-                            validate={[required, maxLength7]}
-                        />
-                    </div>
+                    {RenderField<IUserKey>("password", TextInput, "password", [required, maxLength7], 'password')}
                 </Grid>
                 <Grid container item xs={8} spacing={1}>
-                    <div>
-                        <Field
-                            type='checkBox'
-                            name="rememberMe"
-                            label="rememberMe"
-                            component={CheckBoxInput}/>
-                    </div>
+                    {RenderField<IUserKey>("rememberMe", CheckBoxInput, "rememberMe", [], 'checkBox')}
                 </Grid>
-                {error && <div>
-                    {error}
+                {props.error && <div>
+                    {props.error}
                 </div>}
 
                 <Grid container item xs={8} spacing={1}>
                     <div>
                         <Button variant="contained"
-                                color="secondary" type="submit" disabled={pristine || submitting}>Submit</Button>
+                                color="secondary" type="submit" disabled={props.pristine || props.submitting}>Submit</Button>
                         <Button variant="contained"
-                                color="secondary" type="button" disabled={pristine || submitting} onClick={reset}>Clear
+                                color="secondary" type="button" disabled={props.pristine || props.submitting} onClick={props.reset}>Clear
                             Values
                         </Button>
                     </div>

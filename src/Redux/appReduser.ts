@@ -3,7 +3,8 @@ import {getAuthor, getCurentAuthor} from "./authorReduser";
 import {AppStateType} from "./redux-store";
 
 let initialState = {
-    initialazed: false
+    initialazed: false,
+    captcha: ''
 }
 
 const appReduser = (state: initialazedStateType = initialState, action: ActionType): initialazedStateType => {
@@ -34,6 +35,7 @@ export const getInitialAuthor = () => {
 
 export type initialazedStateType = {
     initialazed: boolean
+    captcha?: string
 }
 
 type initialSuccessAC = ReturnType<typeof initialSuccess>
