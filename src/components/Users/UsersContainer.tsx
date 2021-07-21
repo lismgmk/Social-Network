@@ -1,16 +1,23 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import Users from "./Users";
 import {
     followBlock,
-    followUser, getUser, isdisabledButton, setLoaded, setTotalCount,
-    setUser, unFollowBlock,
+    getUser, isdisabledButton,
+    unFollowBlock,
 }
     from "../../Redux/usersReduser";
 import {AppStateType} from "../../Redux/redux-store";
 import Preloader from "../elseElements/Preloader";
 import {getUserItemsType} from "../../Api/api";
+import {
+    followArrButtonSelector, followBoolButtonSelector,
+    getUsers,
+    pageActionPage,
+    pageIsLoaded,
+    pageSizeSelector,
+    totalCountSelector
+} from "../../Redux/usersSelector";
 
 
 class UsersContainer extends React.Component <MapStateDispatchType> {
@@ -28,17 +35,17 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
         return (
             <>
 
-                {this.props.isLoaded ?<Preloader/> : null}
+                {this.props.isLoaded ? <Preloader/> : null}
                 <Users
                     totalCount={this.props.totalCount}
                     pageSize={this.props.pageSize}
                     clickActionPage={this.clickActionPage}
-                    users = {this.props.users}
-                    unFollow = {this.props.unFollowBlock}
-                    follow = {this.props.followBlock}
-                    actionPage = {this.props.actionPage}
-                    isdisabledButton = {this.props.isdisabledButton}
-                    followArrButton = {this.props.followArrButton}
+                    users={this.props.users}
+                    unFollow={this.props.unFollowBlock}
+                    follow={this.props.followBlock}
+                    actionPage={this.props.actionPage}
+                    isdisabledButton={this.props.isdisabledButton}
+                    followArrButton={this.props.followArrButton}
                 />
             </>
 
@@ -49,13 +56,13 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
 
 let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        actionPage: state.usersPage.actionPage,
-        isLoaded: state.usersPage.isLoaded,
-        followArrButton: state.usersPage.followArrButton,
-        followBoolButton: state.usersPage.followBoolButton
+        users: getUsers(state),
+        pageSize: pageSizeSelector(state),
+        totalCount: totalCountSelector(state),
+        actionPage: pageActionPage(state),
+        isLoaded: pageIsLoaded(state),
+        followArrButton: followArrButtonSelector(state),
+        followBoolButton: followBoolButtonSelector(state)
     }
 }
 
@@ -80,7 +87,7 @@ type MapDispatchToPropsType = {
     followBlock: (userId: number) => void
     unFollowBlock: (userId: number) => void
     isdisabledButton: (followBoolButton: boolean, id: number) => void
-    getUser: (pageSize: number, actionPage: number)=> void
+    getUser: (pageSize: number, actionPage: number) => void
 }
 
 
