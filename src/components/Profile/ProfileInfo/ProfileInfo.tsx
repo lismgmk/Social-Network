@@ -3,6 +3,7 @@ import React from "react";
 import user from '../../../images/user.svg'
 import {ProfileStatus} from "./ProfileStatus";
 import {ProfileType} from "../Profile";
+import {ProfileStatusWithHook} from "./ProfileStatusWithHook";
 
 
 export function ProfileInfo (props: ProfileType) {
@@ -16,7 +17,8 @@ export function ProfileInfo (props: ProfileType) {
             <div>{props.profileUser.lookingForAJobDescription}</div>
             </div>
             <div>
-               <ProfileStatus
+               <ProfileStatusWithHook
+                   // ProfileStatus
                    statusAuthor={props.statusAuthor}
                    setStatusAuthor={props.setStatusAuthor}
                />
