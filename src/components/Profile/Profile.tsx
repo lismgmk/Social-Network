@@ -2,18 +2,15 @@ import React from "react";
 
 import s from "./Profile.module.css";
 
-import {getProfileUserType} from "../../Api/api";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {getProfileUserType} from "../../Types/types";
 
 
 export function Profile(props: ProfileType) {
 
     return (
         <div className={s.profile}>
-            <div>{props.profileUser.fullName}</div>
-
-            <div>{props.profileUser.lookingForAJob ? 'loooking for a job' : 'jobing'} </div>
             <ProfileInfo
                 profileUser={props.profileUser}
                 statusAuthor={props.statusAuthor}
@@ -26,7 +23,7 @@ export function Profile(props: ProfileType) {
 
 
 export type ProfileType = {
-    profileUser: getProfileUserType
+    profileUser: getProfileUserType | null
     statusAuthor: string
     setStatusAuthor: (param: string) => void
 }

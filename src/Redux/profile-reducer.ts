@@ -1,27 +1,24 @@
-import {authorApi, getProfileUserType, headerApi, userApi} from "../Api/api";
+import {authorApi} from "../Api/api";
+import {getProfileUserType} from "../Types/types";
+
 
 export const addPost = (text: string) => ({type: 'ADDPOST', text} as const);
-// export const updateNewPostText = (text: string) => ({type: 'UPDATENEWPOSTTEXT', text} as const);
 export const addProfileUser = (model: getProfileUserType) => ({type: 'ADD_PROFILE_USER', model} as const);
 export const getStatus = (status: string) => ({type: 'GET_STATUS_USER', status} as const);
 
 
-let initialState: InitStateProfileType = {
-    posts: [ {id: 1, message: 'Hi, how are you?', likeCount: 12},
-        {id: 2, message: 'It\'s my first post', likeCount: 11}],
-    profileUser: {
-        userId: 1,
-        lookingForAJob: true,
-        lookingForAJobDescription: '',
-        fullName: '',
-        contacts: null,
-        photos: null,
-    },
+let initialState = {
+    posts: [
+        {id: 1, message: 'Hi, how are you?', likeCount: 12},
+        {id: 2, message: 'It\'s my first post', likeCount: 11}
+    ] as Array<postsType>,
+    profileUser: null as getProfileUserType | null,
     statusAuthor: '',
 }
 
+export type InitStateProfileType = typeof initialState
 
-const profileReduser = (state: InitStateProfileType = initialState, action: ActionsTypes): InitStateProfileType => {
+const profileReduser = (state = initialState, action: ActionsTypes): InitStateProfileType => {
     switch (action.type) {
         case 'ADDPOST':
 
@@ -32,11 +29,12 @@ const profileReduser = (state: InitStateProfileType = initialState, action: Acti
         case 'ADD_PROFILE_USER': {
             return {
                 ...state,
-                profileUser: { ...state.profileUser, ...action.model}
+                profileUser: {...state.profileUser, ...action.model}
             }
         }
 
         case 'GET_STATUS_USER': {
+
             return {
                 ...state,
                 statusAuthor: action.status
@@ -48,7 +46,7 @@ const profileReduser = (state: InitStateProfileType = initialState, action: Acti
 }
 export default profileReduser;
 
-export const getProfileUser = (param: number| null) => {
+export const getProfileUser = (param: number | null) => {
     return (
         (dispatch) => {
             authorApi.getProfileUser(param)
@@ -70,19 +68,13 @@ export const getStatusAuthor = (param: number | null) => {
 export const setStatusAuthor = (status: string) => (dispatch) => {
     debugger
     authorApi.setStatusAuthor(status)
-                .then(response => {
-                    if(response.resultCode === 0){
-                        dispatch(getStatus(status))
-                    }
-                })
-        }
-
-export type InitStateProfileType = {
-    posts: Array<postsType>
-    // newPostText: string
-    profileUser: getProfileUserType
-    statusAuthor: string
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(getStatus(status))
+            }
+        })
 }
+
 
 export type postsType =
     {
@@ -92,12 +84,10 @@ export type postsType =
     }
 
 type addPostType = ReturnType<typeof addPost>
-// type updateNewPostTextType = ReturnType<typeof updateNewPostText>
 type addProfileUserType = ReturnType<typeof addProfileUser>
 type getStatusType = ReturnType<typeof getStatus>
 
 type ActionsTypes =
     | addPostType
-    // | updateNewPostTextType
     | addProfileUserType
     | getStatusType

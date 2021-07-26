@@ -7,7 +7,8 @@ import {withRouter} from "react-router";
 import {RouteComponentProps} from "react-router/ts4.0";
 import { WithAuthRedirect} from "../../HOK/WithAuthRedirect";
 import {compose} from "redux";
-import {getProfileUserType} from "../../Api/api";
+import {getProfileUserType} from "../../Types/types";
+
 
 
 let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -27,6 +28,7 @@ class ProfileClassContainer extends React.Component <PropsType> {
                 this.props.history.push("/login");
             }
         } else {
+            debugger
             this.props.getProfileUser(param)
             this.props.getStatusAuthor(param)
         }
@@ -60,7 +62,7 @@ type PathParamsType = {
 // Your component own properties
 type PropsType = RouteComponentProps<PathParamsType> & MapStateDispatchType
 type MapStateToPropsType = {
-    profileUser: getProfileUserType
+    profileUser: getProfileUserType | null
     statusAuthor: string
     authorId: number | null
 }

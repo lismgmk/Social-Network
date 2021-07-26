@@ -1,11 +1,11 @@
 import React from 'react';
 import {logInAuthor} from "../../Redux/authorReduser";
-import {formDataType} from "../../Api/api";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import LoginForm, {captchaType} from "../Form/LoginForm";
 import {reduxForm} from "redux-form";
 import {Redirect} from "react-router";
+import {formDataType} from "../../Types/types";
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -20,7 +20,6 @@ const LoginReduxForm = reduxForm<formDataType, captchaType>({
 })(LoginForm)
 
 
-
 let LoginConnect = (props: PropsTypeLogin) => {
     const loginAuthor = (data : formDataType) => props.logInAuthor(data)
 debugger
@@ -31,7 +30,6 @@ debugger
 
 }
 
-
 const LoginContainer = connect(mapStateToProps, {logInAuthor})(LoginConnect)
 
 export default LoginContainer
@@ -39,7 +37,7 @@ export default LoginContainer
 type MapStateToPropsType = {
     statusAuthor: string
     isLog: boolean
-    captcha?: string
+    captcha: string | undefined
 }
 type MapDispatchToPropsType = {
     logInAuthor: (values: formDataType) => void

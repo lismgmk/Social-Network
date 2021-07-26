@@ -9,7 +9,7 @@ import {
     from "../../Redux/usersReduser";
 import {AppStateType} from "../../Redux/redux-store";
 import Preloader from "../elseElements/Preloader";
-import {getUserItemsType} from "../../Api/api";
+
 import {
     followArrButtonSelector, followBoolButtonSelector,
     getUsers,
@@ -18,6 +18,7 @@ import {
     pageSizeSelector,
     totalCountSelector
 } from "../../Redux/usersSelector";
+import {getUserItemsType} from "../../Types/types";
 
 
 class UsersContainer extends React.Component <MapStateDispatchType> {

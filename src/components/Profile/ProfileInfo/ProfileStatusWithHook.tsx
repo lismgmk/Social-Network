@@ -6,13 +6,16 @@ export const ProfileStatusWithHook = React.memo((props: statusType) => {
 
     const [editMode, seteditMode] = useState<boolean>(false)
     const [status, setStatus] = useState<string>(props.statusAuthor)
+    // const dispatch =
 
     useEffect(()=>{
             setStatus(props.statusAuthor)
+
     }, [props.statusAuthor])
 
 
     function deActivateEditMode() {
+        debugger
         seteditMode(false)
         props.setStatusAuthor(status)
     }

@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import { withRouter} from "react-router";
 import {AppStateType} from "./Redux/redux-store";
-import {getInitialAuthor, initialazedStateType} from "./Redux/appReduser";
+import {getInitialAuthor} from "./Redux/appReduser";
 import Preloader from "./components/elseElements/Preloader";
 
 let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -23,7 +23,8 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
 class App extends React.Component<MapStateDispatchToPropsType> {
 
     componentDidMount() {
-        this.props.getInitialAuthor()
+        this.props.getInitialAuthor();
+
     }
 
     render() {

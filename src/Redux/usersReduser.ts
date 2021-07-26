@@ -1,19 +1,22 @@
 import React from 'react';
-import {getUserItemsType, userApi} from "../Api/api";
+import {userApi} from "../Api/api";
+import {getUserItemsType} from "../Types/types";
+
 
 let initialState = {
-    users: [],
+    users: [] as Array<getUserItemsType>,
     pageSize: 3,
     totalCount: 10,
     actionPage: 2,
     isLoaded: false,
     statusButton: false,
-    followArrButton: [],
+    followArrButton: [] as Array<number>,
     followBoolButton: false
-
 }
 
-const usersReduser = (state: initialStateUsersType = initialState, action: ActionUserType): initialStateUsersType => {
+
+
+const usersReduser = (state = initialState, action: ActionUserType): initialStateUsersType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
@@ -114,18 +117,6 @@ export const followBlock = (iserId: number) => {
     )
 }
 
-
-
-export type initialStateUsersType = {
-    users: Array<getUserItemsType>
-    totalCount: number
-    pageSize: number
-    actionPage: number
-    isLoaded: boolean
-    followArrButton: Array<number>
-    followBoolButton: boolean
-}
-
 export type FollowType = ReturnType<typeof followUser>
 export type UnFollowType = ReturnType<typeof unfollowUser>
 export type SetUserType = ReturnType<typeof setUser>
@@ -154,3 +145,5 @@ export const isdisabledButton = (followBoolButton: boolean, id: number) => ({
     followBoolButton,
     id
 } as const)
+
+export type initialStateUsersType = typeof initialState

@@ -1,9 +1,10 @@
 import {Field, InjectedFormProps} from "redux-form";
 import {Button, Container, Grid} from "@material-ui/core";
-import {CheckBoxInput, IUser, IUserKey, RenderField, TextInput} from "../helpers/renderField";
+import {CheckBoxInput, IUserKey, RenderField, TextInput} from "../helpers/renderField";
 import React from "react";
 
 import { maxLength7, required} from "../helpers/validation";
+import {IUser} from "../../Types/types";
 
 export type captchaType = {
     captcha: string | undefined

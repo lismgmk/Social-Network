@@ -2,6 +2,7 @@ import React from "react";
 import {Field, WrappedFieldProps} from "redux-form";
 import {WrappedFieldMetaProps} from "redux-form/lib/Field";
 import {validateType} from "./validation";
+import {IUser} from "../../Types/types";
 
 type FormCreateFieldType = {
     children: React.ReactNode
@@ -66,10 +67,5 @@ export function RenderField<Keys extends string>(
     )
 }
 
-export type IUser = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 
 export type IUserKey =  Extract<keyof IUser, string>

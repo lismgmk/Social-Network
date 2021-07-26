@@ -1,15 +1,16 @@
 import React from 'react';
-import {formDataType, getAuthorDataRespType, headerApi} from "../Api/api";
+import {headerApi} from "../Api/api";
 import {stopSubmit} from "redux-form";
+import {formDataType} from "../Types/types";
 
 let initialState = {
-    id: null,
-    email: null,
-    login: null,
+    id: null as (number | null),
+    email: null as (string | null),
+    login: null as (string | null),
     isLog: false
 }
 
-const authorReduser = (state: initialStateUsersType = initialState, action: ActionType): initialStateUsersType => {
+const authorReduser = (state = initialState, action: ActionType): initialStateUsersType => {
     switch (action.type) {
         case "GET_AUTHOR":
             return {
@@ -30,7 +31,7 @@ export const getCurentAuthor = (id, login, email, isLog) => ({
 
 export const getAuthor = () =>
     (dispatch) => {
-       return  headerApi.getAuthor()
+        return headerApi.getAuthor()
             .then(response => {
                 if (response.resultCode === 0) {
                     let {id, login, email} = response.data
@@ -72,12 +73,7 @@ export const logOutAuthor = () => {
     )
 }
 
-export type AuthorDataType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isLog: boolean
-}
-type initialStateUsersType = AuthorDataType
+
+export type initialStateUsersType = typeof initialState
 type getAuthorActionType = ReturnType<typeof getCurentAuthor>
 type ActionType = getAuthorActionType

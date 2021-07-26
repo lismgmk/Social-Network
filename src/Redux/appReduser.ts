@@ -1,13 +1,12 @@
-import {headerApi} from "../Api/api";
 import {getAuthor, getCurentAuthor} from "./authorReduser";
-import {AppStateType} from "./redux-store";
+
 
 let initialState = {
     initialazed: false,
-    captcha: ''
+    captcha: '' as (string | undefined)
 }
 
-const appReduser = (state: initialazedStateType = initialState, action: ActionType): initialazedStateType => {
+const appReduser = (state = initialState, action: ActionType): initialazedStateType => {
     switch (action.type) {
         case "INITIAL_SUCCESS":
             return {
@@ -33,10 +32,8 @@ export const getInitialAuthor = () => {
     )
 }
 
-export type initialazedStateType = {
-    initialazed: boolean
-    captcha?: string
-}
+
+export type initialazedStateType = typeof initialState
 
 type initialSuccessAC = ReturnType<typeof initialSuccess>
 type ActionType = initialSuccessAC

@@ -2,7 +2,7 @@ import React from "react";
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {AuthorDataType, getAuthor, logOutAuthor} from "../../Redux/authorReduser";
+import {getAuthor, logOutAuthor} from "../../Redux/authorReduser";
 
 let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -25,7 +25,6 @@ class HeaderContainer extends React.Component <MapStateDispatchLogType> {
                 login={this.props.login}
                 isLog={this.props.isLog}
                 logOutAuthor={this.props.logOutAuthor}
-                // getAuthor={this.props.getAuthor}
             />
         )
     }
