@@ -2,25 +2,23 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
 
-export const ProfileStatusWithHook = React.memo((props: statusType) => {
+export const ProfileStatusWithHook: React.FC<statusType> = React.memo((props) => {
+
+    const {statusAuthor, setStatusAuthor} = props
 
     const [editMode, seteditMode] = useState<boolean>(false)
     const [status, setStatus] = useState<string>(props.statusAuthor)
-    // const dispatch =
 
     useEffect(()=>{
-            setStatus(props.statusAuthor)
+            setStatus(statusAuthor)
 
-    }, [props.statusAuthor])
-
+    }, [statusAuthor])
 
     function deActivateEditMode() {
         debugger
         seteditMode(false)
-        props.setStatusAuthor(status)
+        setStatusAuthor(status)
     }
-
-
 
     const setCurentInput = (e:  ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
@@ -29,7 +27,7 @@ export const ProfileStatusWithHook = React.memo((props: statusType) => {
         return (
             <div>
                 { !editMode && <div>
-                    <span onDoubleClick={()=>seteditMode(true)} >{props.statusAuthor || '-----'}</span>
+                    <span onDoubleClick={()=>seteditMode(true)} >{statusAuthor || '-----'}</span>
                 </div>}
                 { editMode && <div>
                     <input autoFocus = {true}

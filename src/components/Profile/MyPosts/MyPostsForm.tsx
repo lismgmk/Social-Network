@@ -1,10 +1,11 @@
 import React from "react";
-import {Field} from "redux-form";
+import {Field, InjectedFormProps} from "redux-form";
 import {maxLength20, required} from "../../helpers/validation";
 import {TextArea} from "../../helpers/renderField";
+import {myFormPostsType} from "./MyPostsContainer";
 
 export let MyPostsForm = (props
-                              // :InjectedFormProps<myFormPostsType> & PropsType
+                               :InjectedFormProps<myFormPostsType>
 ) => {
    return <form onSubmit={props.handleSubmit}>
        <div>
@@ -17,8 +18,6 @@ export let MyPostsForm = (props
            />
 
        </div>
-
-
         <div>
             <button type="submit"
                 // disabled={submitting}

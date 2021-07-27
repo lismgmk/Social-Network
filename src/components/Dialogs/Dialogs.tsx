@@ -4,15 +4,17 @@ import {Message} from "./Message/Message";
 import {Dialog} from "./DialodItem/DialogItem";
 import {DialogStateDispatchType} from "./DialogsContainer";
 import {Redirect} from "react-router";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {TextArea} from "../helpers/renderField";
 import {maxLength20, required} from "../helpers/validation";
 
 
 
-export function Dialogs(props : DialogStateDispatchType) {
+export const Dialogs: React.FC<DialogStateDispatchType> = (props ) =>{
 
-    let state = props.dialogsPage
+    const {dialogsPage, addDialog} = props
+
+    let state = dialogsPage
 
     let getDialog = state.dialogs.map((item)=>{
         return <Dialog name={item.name} />
@@ -22,8 +24,8 @@ export function Dialogs(props : DialogStateDispatchType) {
         return  <Message message={item.message} />
     });
 
-    let addDialog = (value: myFormPostsType) => {
-        props.addDialog(value.textarea)
+    let addOneDialog = (value: myFormPostsType) => {
+        addDialog(value.textarea)
     }
 
         return (
@@ -37,14 +39,14 @@ export function Dialogs(props : DialogStateDispatchType) {
                     {getMessage}
                 </div>
 
-               <DialogsRedaxForm onSubmit={addDialog}/>
+               <DialogsRedaxForm onSubmit={addOneDialog}/>
 
             </div>
 
         )
 }
 
-const DialogsForm = (props) => {
+const DialogsForm: React.FC<InjectedFormProps<myFormPostsType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.dialogsWrapper}>

@@ -18,16 +18,18 @@ let MapStateToPropsPosts = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-export function MyPosts(props: MapStateDispatchPostsType) {
+const MyPosts: React.FC<MapStateDispatchPostsType>  = (props ) => {
+
+    const {profilePagePosts, addPost} = props
 
     const postsElements =
-        props.profilePagePosts.map(p => <Post
+        profilePagePosts.map(p => <Post
             message={p.message}
             likeCount={p.likeCount}
         />)
 
     const onAddPost = (value: myFormPostsType)=> {
-        props.addPost(value.textarea)
+        addPost(value.textarea)
     }
 
     return (
@@ -40,8 +42,6 @@ export function MyPosts(props: MapStateDispatchPostsType) {
         </div>
     )
 }
-
-
 
 export default connect(MapStateToPropsPosts, {addPost})(MyPosts)
 
@@ -58,7 +58,6 @@ type MapStateToPropsType = {
 }
 
 type MapStateDispatchPostsType = MapStateToPropsType & MapDispatchToPropsType
-
 
 export type myFormPostsType = {
     textarea: string

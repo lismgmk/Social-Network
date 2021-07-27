@@ -4,8 +4,6 @@ import user from '../../images/user.svg'
 import {NavLink} from "react-router-dom";
 import {getUserItemsType} from "../../Types/types";
 
-
-
 type UsersPropstype = {
     totalCount: number
     pageSize: number
@@ -14,12 +12,23 @@ type UsersPropstype = {
     unFollow: (p: number) => void
     follow: (p: number) => void
     actionPage: number
-    isdisabledButton: (followBoolButton: boolean, id: number) => void
     followArrButton: Array<number>
 }
 
-const Users = (props: UsersPropstype) => {
-    let pagesCount = Math.ceil(props.totalCount / (props.pageSize * 100))
+const Users: React.FC<UsersPropstype> = (props) => {
+
+    const {
+        totalCount,
+        pageSize,
+        clickActionPage,
+        users,
+        unFollow,
+        follow,
+        actionPage,
+        followArrButton
+    } = props
+
+    let pagesCount = Math.ceil(totalCount / (pageSize * 100))
 
 
     let arr: number[] = []
@@ -36,9 +45,9 @@ const Users = (props: UsersPropstype) => {
                 {arr.map(p => {
                     return (
                         <div
-                            className={`${p === props.actionPage ? s.activePage : ''} ${s.pageNumberStyle}`}
+                            className={`${p === actionPage ? s.activePage : ''} ${s.pageNumberStyle}`}
                             onClick={(e) => {
-                                props.clickActionPage(p)
+                                clickActionPage(p)
                             }}
                         >{p}</div>
                     )
@@ -46,7 +55,7 @@ const Users = (props: UsersPropstype) => {
             </div>
 
 
-            {props.users.map(i =>
+            {users.map(i =>
 
                 <div
                 key={i.id} className={s.box}>
@@ -57,17 +66,17 @@ const Users = (props: UsersPropstype) => {
                         {
                             i.followed ?
                                 <button
-                                    disabled={props.followArrButton.some((u) => u == i.id)}
+                                    disabled={followArrButton.some((u) => u == i.id)}
                                     onClick={() => {
-                                        props.unFollow(i.id)
+                                        unFollow(i.id)
                                     }}
                                 >
                                     UNFollow
                                 </button> :
                                 <button
-                                    disabled={props.followArrButton.some((u) => u == i.id)}
+                                    disabled={followArrButton.some((u) => u == i.id)}
                                     onClick={() => {
-                                        props.follow(i.id)
+                                        follow(i.id)
                                     }}
                                 >
                                     follow

@@ -45,7 +45,6 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
                     unFollow={this.props.unFollowBlock}
                     follow={this.props.followBlock}
                     actionPage={this.props.actionPage}
-                    isdisabledButton={this.props.isdisabledButton}
                     followArrButton={this.props.followArrButton}
                 />
             </>

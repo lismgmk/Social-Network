@@ -19,15 +19,13 @@ const LoginReduxForm = reduxForm<formDataType, captchaType>({
     form: 'loginForm'
 })(LoginForm)
 
-
-let LoginConnect = (props: PropsTypeLogin) => {
-    const loginAuthor = (data : formDataType) => props.logInAuthor(data)
-debugger
-    if (props.isLog) {
+let LoginConnect: React.FC<PropsTypeLogin> = (props) => {
+    const {isLog, captcha, logInAuthor} = props
+    const loginAuthors = (data: formDataType) => logInAuthor(data)
+    if (isLog) {
         return <Redirect to={'/profile'}/>
     }
-        return <LoginReduxForm onSubmit={loginAuthor} captcha={props.captcha}/>
-
+    return <LoginReduxForm onSubmit={loginAuthors} captcha={captcha}/>
 }
 
 const LoginContainer = connect(mapStateToProps, {logInAuthor})(LoginConnect)

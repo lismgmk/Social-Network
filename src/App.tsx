@@ -68,4 +68,4 @@ type MapDispatchToPropsType = {
 type MapStateToPropsType = {
     initialazed: boolean
 }
-type MapStateDispatchToPropsType = MapDispatchToPropsType & MapStateToPropsType
+type MapStateDispatchToPropsType = MapStateToPropsType &  MapDispatchToPropsType
