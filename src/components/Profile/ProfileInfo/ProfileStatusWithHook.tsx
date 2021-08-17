@@ -27,7 +27,7 @@ export const ProfileStatusWithHook: React.FC<statusType> = React.memo((props) =>
         return (
             <div>
                 { !editMode && <div>
-                    <span onDoubleClick={()=>seteditMode(true)} >{statusAuthor || '-----'}</span>
+                    <span onDoubleClick={()=>seteditMode(true)} >{statusAuthor || 'double click here to change the status!!'}</span>
                 </div>}
                 { editMode && <div>
                     <input autoFocus = {true}
