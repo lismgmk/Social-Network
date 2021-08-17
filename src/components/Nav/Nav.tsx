@@ -1,6 +1,7 @@
 import React from "react";
 import s from './Nav.module.css';
 import {NavLink} from "react-router-dom";
+import {PATH} from "../../App";
 
 
 export function Nav() {
@@ -9,16 +10,16 @@ export function Nav() {
 
 
             <div className={s.item}>
-                <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
+                <NavLink to={PATH.SOCIAL_PROFILE} activeClassName={s.activeLink}>Profile</NavLink>
             </div>
             <div className={`${s.item} ${s.active}`}>
-                <NavLink to='/message' activeClassName={s.activeLink}>Message</NavLink>
+                <NavLink to={PATH.SOCIAL_MESSAGE} activeClassName={s.activeLink}>Message</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/users' activeClassName={s.activeLink}>Users</NavLink>
+                <NavLink to={PATH.SOCIAL_USERS} activeClassName={s.activeLink}>Users</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to='/login' activeClassName={s.activeLink}>Login</NavLink>
+                <NavLink to={PATH.SOCIAL_LOGIN} activeClassName={s.activeLink}>Login</NavLink>
             </div>
 
 

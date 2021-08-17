@@ -6,6 +6,7 @@ import LoginForm, {captchaType} from "../Form/LoginForm";
 import {reduxForm} from "redux-form";
 import {Redirect} from "react-router";
 import {formDataType} from "../../Types/types";
+import {PATH} from "../../App";
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -23,7 +24,7 @@ let LoginConnect: React.FC<PropsTypeLogin> = (props) => {
     const {isLog, captcha, logInAuthor} = props
     const loginAuthors = (data: formDataType) => logInAuthor(data)
     if (isLog) {
-        return <Redirect to={'/profile'}/>
+        return <Redirect to={PATH.SOCIAL_PROFILE}/>
     }
     return <LoginReduxForm onSubmit={loginAuthors} captcha={captcha}/>
 }

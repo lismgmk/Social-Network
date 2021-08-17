@@ -13,10 +13,7 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-
 class HeaderContainer extends React.Component <MapStateDispatchLogType> {
-
-
     render() {
         return (
             <Header

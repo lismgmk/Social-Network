@@ -2,6 +2,12 @@ import React from 'react';
 import {headerApi} from "../Api/api";
 import {stopSubmit} from "redux-form";
 import {formDataType} from "../Types/types";
+import {Redirect, Switch} from "react-router";
+import {PATH} from "../App";
+import ProfileContainer from "../components/Profile/ProfileContainer";
+import UsersContainer from "../components/Users/UsersContainer";
+import LoginContainer from "../components/Login/LoginContainer";
+import DialogsContainer from "../components/Dialogs/DialogsContainer";
 
 let initialState = {
     id: null as (number | null),
@@ -50,6 +56,7 @@ export const logInAuthor = (formData: formDataType) => {
                     debugger
                     if (response.data.resultCode === 0) {
                         dispatch(getAuthor()
+
                         )
                     } else {
                         let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';

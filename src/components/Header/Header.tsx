@@ -3,11 +3,10 @@ import s from './Header.module.css'
 import {MapStateDispatchLogType} from "./HeaderContainer";
 import {NavLink} from "react-router-dom";
 import {Button} from "@material-ui/core";
+import {PATH} from "../../App";
+import {Redirect, Switch} from "react-router";
 
 export function Header(props : MapStateDispatchLogType) {
-
-
-
     return (
         <div className={s.header}>
             <header>
@@ -16,16 +15,31 @@ export function Header(props : MapStateDispatchLogType) {
                         <div>{props.login}</div>
                         <div>{props.email}</div>
                         <div>{props.idAuthor}</div>
-                        <h1>Hello</h1>
                     </div>
                     :
-                    <NavLink to='/login'>Login</NavLink>}
+                    <NavLink to={PATH.SOCIAL_LOGIN}>Login</NavLink>
+                } {props.isLog &&
+                <div>
+                    <Button variant="contained"
+                            color="secondary"
+                            type="button"
+                            onClick={()=>{
+                                props.logOutAuthor()
 
-                {props.isLog && <Button variant="contained"
-                        color="secondary"
-                        type="button"
-                        onClick={()=>{props.logOutAuthor()}}>Log Out
-                </Button>}
+                            }}>Log Out
+                    </Button>
+                    <Switch>
+                        <Redirect from={PATH.SOCIAL_404} to={PATH.SOCIAL_PROFILE}/>
+                    </Switch>
+                </div>
+                }
+                {!props.isLog &&
+                <div>
+                    <Switch>
+                        <Redirect from={PATH.SOCIAL_PROFILE} to={PATH.SOCIAL_LOGIN}/>
+                    </Switch>
+                </div>
+                }
             </header>
         </div>
     )

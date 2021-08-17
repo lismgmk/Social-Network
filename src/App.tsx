@@ -21,17 +21,13 @@ let MapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 class App extends React.Component<MapStateDispatchToPropsType> {
-
     componentDidMount() {
         this.props.getInitialAuthor();
-
     }
-
     render() {
         if(!this.props.initialazed){
             return <Preloader/>
         }
-
         return (
 
                 <div className={s.appWrapper}>
@@ -39,34 +35,34 @@ class App extends React.Component<MapStateDispatchToPropsType> {
                     <Nav/>
                     <div className={s.main}>
                         <Switch>
-                            <Route exact path={"/Social-Network"} render={()=><ProfileContainer/> }/>
-                            <Route exact path={"/profile"} render={()=><ProfileContainer/> }/>
-                            <Route exact path={"/"} render={()=><ProfileContainer/> }/>
-                            <Route path={"/login"} render={()=><LoginContainer/>} />
-                            <Route path={"/message"} render={()=><DialogsContainer/>} />
-                            <Route path={"/users"} render={()=><UsersContainer/>} />
+
+                            <Route path={PATH.SOCIAL_NULL} exact render={() => <Redirect to={PATH.SOCIAL_NETWORK}/>}/>
+                            <Route exact path={PATH.SOCIAL_NETWORK} render={()=><LoginContainer/> }/>
 
 
-                            <Route path={'/404'} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
-                            <Redirect from={'*'} to={'/404'}/>
-
+                            <Route exact path={PATH.SOCIAL_PROFILE} render={()=><ProfileContainer/> }/>
+                            <Route exact path={PATH.SOCIAL_USERS} render={()=><UsersContainer/> }/>
+                            <Route path={PATH.SOCIAL_LOGIN} render={()=><LoginContainer/>} />
+                            <Route path={PATH.SOCIAL_MESSAGE} render={()=><DialogsContainer/>} />
+                            <Route path={PATH.SOCIAL_404} render={() => <h1>404: PAGE NOT FOUND</h1>} />
+                            <Redirect from={'*'} to={PATH.SOCIAL_404}/>
                         </Switch>
-                        {/*<Route path='/profile' render={*/}
-                        {/*    () => <ProfileContainer*/}
-                        {/*    />*/}
-                        {/*}/>*/}
-                        {/*<Route path='/message' render={*/}
-                        {/*    () => <DialogsContainer/>*/}
-                        {/*}/>*/}
-                        {/*<Route path='/login' component={LoginContainer}/>*/}
-                        {/*<Route path='/users' render={*/}
-                        {/*    () => <UsersContainer/>*/}
-                        {/*}/>*/}
                     </div>
                 </div>
 
         )
     }
+}
+
+
+export const PATH = {
+    SOCIAL_NETWORK: '/Social-Network',
+    SOCIAL_PROFILE: '/Social-Network/profile',
+    SOCIAL_MESSAGE: '/Social-Network/message',
+    SOCIAL_USERS: '/Social-Network/users',
+    SOCIAL_LOGIN: '/Social-Network/login',
+    SOCIAL_404: '/Social-Network/404',
+    SOCIAL_NULL: '/',
 }
 
 export default compose<React.ComponentType>(
