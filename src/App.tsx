@@ -9,7 +9,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import { withRouter} from "react-router";
+import {Redirect, Switch, withRouter} from "react-router";
 import {AppStateType} from "./Redux/redux-store";
 import {getInitialAuthor} from "./Redux/appReduser";
 import Preloader from "./components/elseElements/Preloader";
@@ -38,17 +38,30 @@ class App extends React.Component<MapStateDispatchToPropsType> {
                     <HeaderContainer/>
                     <Nav/>
                     <div className={s.main}>
-                        <Route path='/profile' render={
-                            () => <ProfileContainer
-                            />
-                        }/>
-                        <Route path='/message' render={
-                            () => <DialogsContainer/>
-                        }/>
-                        <Route path='/login' component={LoginContainer}/>
-                        <Route path='/users' render={
-                            () => <UsersContainer/>
-                        }/>
+                        <Switch>
+                            <Route exact path={"/Social-Network"} render={()=><ProfileContainer/> }/>
+                            <Route exact path={"/profile"} render={()=><ProfileContainer/> }/>
+                            <Route exact path={"/"} render={()=><ProfileContainer/> }/>
+                            <Route path={"/login"} render={()=><LoginContainer/>} />
+                            <Route path={"/message"} render={()=><DialogsContainer/>} />
+                            <Route path={"/users"} render={()=><UsersContainer/>} />
+
+
+                            <Route path={'/404'} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
+                            <Redirect from={'*'} to={'/404'}/>
+
+                        </Switch>
+                        {/*<Route path='/profile' render={*/}
+                        {/*    () => <ProfileContainer*/}
+                        {/*    />*/}
+                        {/*}/>*/}
+                        {/*<Route path='/message' render={*/}
+                        {/*    () => <DialogsContainer/>*/}
+                        {/*}/>*/}
+                        {/*<Route path='/login' component={LoginContainer}/>*/}
+                        {/*<Route path='/users' render={*/}
+                        {/*    () => <UsersContainer/>*/}
+                        {/*}/>*/}
                     </div>
                 </div>
 
