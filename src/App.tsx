@@ -56,7 +56,7 @@ class App extends React.Component<MapStateDispatchToPropsType> {
 
 
 export const PATH = {
-    SOCIAL_NETWORK: '/Social-Network',
+    SOCIAL_NETWORK: '/',
     SOCIAL_PROFILE: '/Social-Network/profile',
     SOCIAL_MESSAGE: '/Social-Network/message',
     SOCIAL_USERS: '/Social-Network/users',
