@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import user from '../../images/user.svg'
 import {NavLink} from "react-router-dom";
 import {getUserItemsType} from "../../Types/types";
+import {PaginationUsers} from "../helpers/PaginationUsers";
 
 type UsersPropstype = {
     totalCount: number
@@ -28,37 +29,42 @@ const Users: React.FC<UsersPropstype> = (props) => {
         followArrButton
     } = props
 
-    let pagesCount = Math.ceil(totalCount / (pageSize * 100))
-
-
-    let arr: number[] = []
-    for (let i = 1; i < pagesCount; i++) {
-        arr.push(i)
-    }
+    // let pagesCount = Math.ceil(totalCount / (pageSize))
+    //
+    //
+    // let arr: number[] = []
+    // for (let i = 1; i < pagesCount; i++) {
+    //     arr.push(i)
+    // }
 
     return (
 
         <div className={s.container}>
 
-
-            <div className={s.boxes}>
-                {arr.map(p => {
-                    return (
-                        <div
-                            className={`${p === actionPage ? s.activePage : ''} ${s.pageNumberStyle}`}
-                            onClick={(e) => {
-                                clickActionPage(p)
-                            }}
-                        >{p}</div>
-                    )
-                })}
-            </div>
+            <PaginationUsers
+                totalCount={totalCount}
+                pageSize={pageSize}
+                clickActionPage={clickActionPage}
+                actionPage={actionPage}
+            />
+            {/*<div className={s.boxes}>*/}
+            {/*    {arr.map(p => {*/}
+            {/*        return (*/}
+            {/*            <div*/}
+            {/*                className={`${p === actionPage ? s.activePage : ''} ${s.pageNumberStyle}`}*/}
+            {/*                onClick={(e) => {*/}
+            {/*                    clickActionPage(p)*/}
+            {/*                }}*/}
+            {/*            >{p}</div>*/}
+            {/*        )*/}
+            {/*    })}*/}
+            {/*</div>*/}
 
 
             {users.map(i =>
 
                 <div
-                key={i.id} className={s.box}>
+                    key={i.id} className={s.box}>
                     <div className={s.ava}>
                         <NavLink to={"/profile/" + i.id} activeClassName={s.activeLink}>
                             <img src={i.photos.small === null ? user : i.photos.small}/>

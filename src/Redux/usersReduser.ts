@@ -5,9 +5,9 @@ import {getUserItemsType} from "../Types/types";
 
 let initialState = {
     users: [] as Array<getUserItemsType>,
-    pageSize: 3,
+    pageSize: 10,
     totalCount: 10,
-    actionPage: 2,
+    actionPage: 1,
     isLoaded: false,
     statusButton: false,
     followArrButton: [] as Array<number>,
