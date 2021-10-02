@@ -1,7 +1,5 @@
-import React from 'react';
 import {userApi} from "../Api/api";
 import {getUserItemsType} from "../Types/types";
-
 
 let initialState = {
     users: [] as Array<getUserItemsType>,
@@ -13,7 +11,6 @@ let initialState = {
     followArrButton: [] as Array<number>,
     followBoolButton: false
 }
-
 
 
 const usersReduser = (state = initialState, action: ActionUserType): initialStateUsersType => {
@@ -57,6 +54,10 @@ const usersReduser = (state = initialState, action: ActionUserType): initialStat
             return {
                 ...state, isLoaded: action.isLoaded
             }
+            case 'SET_PAGE_SIZE':
+            return {
+                ...state, pageSize: action.page
+            }
         case 'IS_DISABLED_BUTTON':
 
             return {
@@ -81,7 +82,7 @@ export const getUser = (pageSize, actionPage) => {
                         dispatch(setLoaded(false))
                         dispatch(setUser(response.items))
                         dispatch(setTotalCount(response.totalCount))
-        dispatch(setActionPage(actionPage))
+                        dispatch(setActionPage(actionPage))
                     }
                 )
         }
@@ -90,15 +91,15 @@ export const getUser = (pageSize, actionPage) => {
 
 export const unFollowBlock = (iserId) => {
     return (dispatch) => {
-            dispatch(isdisabledButton(true, iserId))
-            userApi.unFollow(iserId)
-                .then(response => {
-                    if (response.data.resultCode == 0) {
-                        dispatch(unfollowUser(iserId))
-                    }
-                    dispatch(isdisabledButton(false, iserId))
-                })
-        }
+        dispatch(isdisabledButton(true, iserId))
+        userApi.unFollow(iserId)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(unfollowUser(iserId))
+                }
+                dispatch(isdisabledButton(false, iserId))
+            })
+    }
 
 }
 
@@ -124,6 +125,7 @@ export type SetTotalCountType = ReturnType<typeof setTotalCount>
 export type SetActionPageType = ReturnType<typeof setActionPage>
 export type SetLoadedType = ReturnType<typeof setLoaded>
 export type IsDisabledButtonType = ReturnType<typeof isdisabledButton>
+export type setPageSizeType = ReturnType<typeof setPageSize>
 
 export type ActionUserType =
     | FollowType
@@ -133,12 +135,15 @@ export type ActionUserType =
     | SetActionPageType
     | SetLoadedType
     | IsDisabledButtonType
+    | setPageSizeType
+
 
 export const followUser = (userId: number) => ({type: 'FOLLOW', userId} as const);
 export const unfollowUser = (userId: number) => ({type: 'UNFOLLOW', userId} as const);
 export const setUser = (users: Array<getUserItemsType>) => ({type: 'SETUSER', users} as const);
 export const setTotalCount = (count: number) => ({type: 'SET_TOTAL_COUNT', totalCount: count} as const);
 export const setActionPage = (page: number) => ({type: 'SET_ACTION_PAGE', actionPage: page} as const);
+export const setPageSize = (page: number) => ({type: 'SET_PAGE_SIZE', page} as const);
 export const setLoaded = (load: boolean) => ({type: 'SET_LOADED', isLoaded: load} as const);
 export const isdisabledButton = (followBoolButton: boolean, id: number) => ({
     type: 'IS_DISABLED_BUTTON',

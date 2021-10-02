@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {
     followBlock,
-    getUser, isdisabledButton,
+    getUser, isdisabledButton, setPageSize,
     unFollowBlock,
 }
     from "../../Redux/usersReduser";
@@ -27,11 +27,15 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
         this.props.getUser(this.props.pageSize, this.props.actionPage)
     };
 
-    clickActionPage = (p: number) => {
+    clickActionPages(p: number) {
         this.props.getUser(this.props.pageSize, p)
     }
-
+    setUserPageCounts (num: number) {
+        this.props.setPageSize(num)
+    }
     render() {
+
+
 
         return (
             <>
@@ -40,12 +44,13 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
                 <Users
                     totalCount={this.props.totalCount}
                     pageSize={this.props.pageSize}
-                    clickActionPage={this.clickActionPage}
+                    clickActionPage={this.clickActionPages}
                     users={this.props.users}
                     unFollow={this.props.unFollowBlock}
                     follow={this.props.followBlock}
                     actionPage={this.props.actionPage}
                     followArrButton={this.props.followArrButton}
+                    setUserPageCount={this.setUserPageCounts}
                 />
             </>
 
@@ -70,7 +75,8 @@ export default connect(MapStateToProps, {
     followBlock,
     unFollowBlock,
     isdisabledButton,
-    getUser
+    getUser,
+    setPageSize
 })(UsersContainer);
 
 type MapStateToPropsType = {
@@ -86,6 +92,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     followBlock: (userId: number) => void
     unFollowBlock: (userId: number) => void
+    setPageSize: (page: number) => void
     isdisabledButton: (followBoolButton: boolean, id: number) => void
     getUser: (pageSize: number, actionPage: number) => void
 }

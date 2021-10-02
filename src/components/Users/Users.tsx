@@ -3,7 +3,9 @@ import s from './Users.module.css'
 import user from '../../images/user.svg'
 import {NavLink} from "react-router-dom";
 import {getUserItemsType} from "../../Types/types";
-import {PaginationUsers} from "../helpers/PaginationUsers";
+import {PaginationWrapper} from "../Pagination/PaginationWrapper";
+import {useDispatch} from "react-redux";
+import {setPageSize} from "../../Redux/usersReduser";
 
 type UsersPropstype = {
     totalCount: number
@@ -12,6 +14,7 @@ type UsersPropstype = {
     users: Array<getUserItemsType>
     unFollow: (p: number) => void
     follow: (p: number) => void
+    setUserPageCount: (p: number) => void
     actionPage: number
     followArrButton: Array<number>
 }
@@ -26,43 +29,16 @@ const Users: React.FC<UsersPropstype> = (props) => {
         unFollow,
         follow,
         actionPage,
-        followArrButton
+        followArrButton,
+        setUserPageCount
     } = props
 
-    // let pagesCount = Math.ceil(totalCount / (pageSize))
-    //
-    //
-    // let arr: number[] = []
-    // for (let i = 1; i < pagesCount; i++) {
-    //     arr.push(i)
-    // }
 
     return (
 
         <div className={s.container}>
 
-            <PaginationUsers
-                totalCount={totalCount}
-                pageSize={pageSize}
-                clickActionPage={clickActionPage}
-                actionPage={actionPage}
-            />
-            {/*<div className={s.boxes}>*/}
-            {/*    {arr.map(p => {*/}
-            {/*        return (*/}
-            {/*            <div*/}
-            {/*                className={`${p === actionPage ? s.activePage : ''} ${s.pageNumberStyle}`}*/}
-            {/*                onClick={(e) => {*/}
-            {/*                    clickActionPage(p)*/}
-            {/*                }}*/}
-            {/*            >{p}</div>*/}
-            {/*        )*/}
-            {/*    })}*/}
-            {/*</div>*/}
-
-
             {users.map(i =>
-
                 <div
                     key={i.id} className={s.box}>
                     <div className={s.ava}>
@@ -99,7 +75,14 @@ const Users: React.FC<UsersPropstype> = (props) => {
                     </div>
                 </div>
             )}
-            <button className={s.button}>Show more</button>
+            clickActionPage={clickActionPage}
+            <PaginationWrapper
+                cardPacksTotalCount={totalCount}
+                currentPage={actionPage}
+                pageCount={pageSize}
+                setPackPageCount={setUserPageCount}
+                setPackPage={clickActionPage}
+            />
         </div>
     )
 }
