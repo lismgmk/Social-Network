@@ -27,7 +27,13 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
         this.props.getUser(this.props.pageSize, this.props.actionPage)
     };
 
-    clickActionPages(p: number) {
+    componentDidUpdate(prevProps: Readonly<MapStateDispatchType>, prevState: Readonly<{}>, snapshot?: any) {
+        if(prevProps.pageSize !== this.props.pageSize){
+            this.props.getUser(this.props.pageSize, this.props.actionPage)
+        }
+    }
+
+    clickActionPages (p: number) {
         this.props.getUser(this.props.pageSize, p)
     }
     setUserPageCounts (num: number) {
@@ -40,18 +46,19 @@ class UsersContainer extends React.Component <MapStateDispatchType> {
         return (
             <>
 
-                {this.props.isLoaded ? <Preloader/> : null}
-                <Users
-                    totalCount={this.props.totalCount}
-                    pageSize={this.props.pageSize}
-                    clickActionPage={this.clickActionPages}
-                    users={this.props.users}
-                    unFollow={this.props.unFollowBlock}
-                    follow={this.props.followBlock}
-                    actionPage={this.props.actionPage}
-                    followArrButton={this.props.followArrButton}
-                    setUserPageCount={this.setUserPageCounts}
-                />
+                {this.props.isLoaded ? <Preloader/> :
+                    <Users
+                        totalCount={this.props.totalCount}
+                        pageSize={this.props.pageSize}
+                        clickActionPage={this.clickActionPages.bind(this)}
+                        users={this.props.users}
+                        unFollow={this.props.unFollowBlock}
+                        follow={this.props.followBlock}
+                        actionPage={this.props.actionPage}
+                        followArrButton={this.props.followArrButton}
+                        setUserPageCount={this.setUserPageCounts.bind(this)}
+                    />
+                }
             </>
 
         )

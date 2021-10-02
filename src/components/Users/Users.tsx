@@ -37,7 +37,13 @@ const Users: React.FC<UsersPropstype> = (props) => {
     return (
 
         <div className={s.container}>
-
+            <PaginationWrapper
+                cardPacksTotalCount={totalCount}
+                currentPage={actionPage}
+                pageCount={pageSize}
+                setPackPageCount={setUserPageCount}
+                setPackPage={clickActionPage}
+            />
             {users.map(i =>
                 <div
                     key={i.id} className={s.box}>
@@ -75,14 +81,8 @@ const Users: React.FC<UsersPropstype> = (props) => {
                     </div>
                 </div>
             )}
-            clickActionPage={clickActionPage}
-            <PaginationWrapper
-                cardPacksTotalCount={totalCount}
-                currentPage={actionPage}
-                pageCount={pageSize}
-                setPackPageCount={setUserPageCount}
-                setPackPage={clickActionPage}
-            />
+
+
         </div>
     )
 }
